@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	);
 
 	glm::mat4 Model = glm::mat4(1.0f); // Identity matrix, model is not modified yet
+	Model = glm::scale(Model, glm::vec3(100, 100, 100));
 
 	BasicEffect WrappedShader;
 
@@ -27,13 +28,13 @@ int main(int argc, char *argv[])
 	
 	float SquareCoordinateArray[] = {
 		
-		 100.5f,  100.5f, 0.0f,
-		 -100.5f, -100.5f, 0.0f,};/*
-		 100.5f, -100.5f, 0.0f,
-		 100.5f,  100.5f, 0.0f,
-		 -100.5f, 100.5f, 0.0f,
-		 -100.5f,  -100.5f, 0.0f,
-	};*/
+		 1.0f, 1.0f, 0.0f,
+		 0.0f, 0.0f, 0.0f,
+		 1.0f, 0.0f, 0.0f,
+		 1.0f, 1.0f, 0.0f,
+		 0.0f, 1.0f, 0.0f,
+		 0.0f, 0.0f, 0.0f,
+	};
 	float UV[] = {1, 0, 1, 1, 0, 1, 0, 0};
 
 
@@ -60,13 +61,10 @@ int main(int argc, char *argv[])
 		WrappedShader.setProjection(Projection);
 		WrappedShader.setView(View);
 		gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
-		start = chrono::system_clock::now();
-	
-		gl::EnableVertexAttribArray(0);
-		
-		gl::BindBuffer(gl::ARRAY_BUFFER, SquareVBO);
-	
-		gl::DrawArrays(gl::LINES, 0, 2);
+
+		gl::EnableVertexAttribArray(0);		
+		gl::BindBuffer(gl::ARRAY_BUFFER, SquareVBO);	
+		gl::DrawArrays(gl::TRIANGLES, 0, 6);
 		
 		g.Flip();
 		WrappedShader.end();
@@ -77,6 +75,8 @@ int main(int argc, char *argv[])
 		if(keyboard[SDL_SCANCODE_ESCAPE]){
 			stop = true;
 		}
+
+		Model = glm::rotate(Model, 0.001f, glm::vec3(0, 0, 1)); 
 	}
 	
 	return 0;

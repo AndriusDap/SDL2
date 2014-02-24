@@ -14,7 +14,8 @@ Graphics::Graphics(int w, int h)
 	if(SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3)){
 		std::cout << "Cannot get minor version" << std::endl;
 	}
-	
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
 	main_window = SDL_CreateWindow("OPENGL", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -26,6 +27,7 @@ Graphics::Graphics(int w, int h)
 	
 	gl::Enable(gl::DEPTH_TEST);
 	gl::DepthFunc(gl::LESS);
+	gl::Enable(gl::MULTISAMPLE);
 	//ProjectionMatrix = glm::ortho((float) 0, (float) w, (float) 0, (float) h, (float) 0.01, (float) 100);
 	ProjectionMatrix = glm::ortho((float) -w/2, (float) w/2, (float) -h/2, (float) h/2, (float) 0.01, (float) 100);
 }
