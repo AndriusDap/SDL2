@@ -18,5 +18,10 @@ const double PI = 3.141592653589793;
 	if(_error != 0)\
 	{\
 		printf("%d: %X\n",_line-1, _error);\
+		DebugBreak();\
 	}\
 }
+
+
+const int SCREEN_WIDTH = 1600;
+const int SCREEN_HEIGHT = 900;

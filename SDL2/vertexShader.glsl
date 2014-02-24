@@ -1,5 +1,5 @@
 #version 430 core
-layout(location = 1) in vec3 vertex;
+in vec3 vertex;
 
 uniform mat4 Model;
 uniform mat4 View;

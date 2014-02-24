@@ -26,8 +26,8 @@ Graphics::Graphics(int w, int h)
 	
 	gl::Enable(gl::DEPTH_TEST);
 	gl::DepthFunc(gl::LESS);
-
-	ProjectionMatrix = glm::perspective(60.0f, (float) w/h, 0.1f, 1000.0f);
+	//ProjectionMatrix = glm::ortho((float) 0, (float) w, (float) 0, (float) h, (float) 0.01, (float) 100);
+	ProjectionMatrix = glm::ortho((float) -w/2, (float) w/2, (float) -h/2, (float) h/2, (float) 0.01, (float) 100);
 }
 
 void Graphics::Flip()
