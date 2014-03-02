@@ -1,8 +1,10 @@
 #version 430 core
-out vec3 color;
+out vec4 color;
 
-in vec3 fragmentColor;
+in vec2 UV;
+
+uniform sampler2D TextureSampler;
 
 void main(){
-	color = fragmentColor;	
+	color = texture(TextureSampler, UV);
 }

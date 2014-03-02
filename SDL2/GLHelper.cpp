@@ -1,3 +1,4 @@
+#pragma once
 #include "GLHelper.h"
 #include <cassert>
 #include <string>
@@ -5,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include <SDL_image.h>
 
 
 GLuint GLHelper::LoadShader(std::string filePath, GLuint shaderType)
@@ -87,7 +89,45 @@ GLuint GLHelper::CreateProgram(GLuint fragmentShader, GLuint vertexShader)
 	return programId;
 }
 
-void GLHelper::LoadModel(string filePath, vector<float> vertices, vector<int> drawSequence)
+SDL_Surface* PrepareSurface(SDL_Surface* source)
 {
+	// Change format to one that can be used with opengl
+	SDL_PixelFormat format = {0};	
+	format.format = SDL_PIXELFORMAT_RGBA8888;
+	format.palette = nullptr;
+	format.BitsPerPixel = 32;
+	format.BytesPerPixel = 4;
+	format.Rmask = 0xff000000;
+	format.Gmask = 0x00ff0000;
+	format.Bmask = 0x0000ff00;
+	format.Amask = 0x000000ff;
 
+	auto formatted = SDL_ConvertSurface(source, &format, 0);
+	Uint32* pixels = (Uint32*) formatted->pixels;
+	// Flip horizontaly
+	int w = formatted->w;
+	for(int y = 0; y < formatted->h; y++)
+	{
+		for(int x0 = 0, x1 = formatted->w - 1; x0 < x1; x0++, x1--)
+		{
+			swap((pixels + y * w)[x0], (pixels + y * w)[x1]);
+		}
+	}
+	return formatted;
+}
+GLuint GLHelper::LoadTexture(string filePath)
+{
+	auto bmp = IMG_Load(filePath.c_str());
+	auto preparedTexture = PrepareSurface(bmp);
+	
+	GLuint texture;
+	gl::GenTextures(1, &texture);		
+	gl::BindTexture(gl::TEXTURE_2D, texture);	
+	gl::TexStorage2D(gl::TEXTURE_2D, 1, gl::RGBA8, preparedTexture->w, preparedTexture->h);
+	gl::TexSubImage2D(gl::TEXTURE_2D, 0, 0, 0, preparedTexture->w, preparedTexture->h, gl::RGBA, gl::UNSIGNED_INT_8_8_8_8, preparedTexture->pixels);	
+	CheckGlErrors();
+
+	SDL_FreeSurface(bmp);
+	SDL_FreeSurface(preparedTexture);
+	return texture;
 }

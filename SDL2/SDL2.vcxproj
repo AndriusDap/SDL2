@@ -47,7 +47,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;Opengl32.lib;glloadD.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;Opengl32.lib;glloadD.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -61,25 +61,38 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;Opengl32.lib;glload.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_Image.lib;SDL2main.lib;SDL2test.lib;Opengl32.lib;glload.lib</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicEffect.cpp" />
+    <ClCompile Include="BurstGun.cpp" />
     <ClCompile Include="GLHelper.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Includes.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterObject.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="PlayerShip.cpp" />
+    <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicEffect.h" />
+    <ClInclude Include="BurstGun.h" />
     <ClInclude Include="GLHelper.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="IGameEntity.h" />
     <ClInclude Include="Includes.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="IPewPew.h" />
+    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MasterObject.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentShader.glsl">
