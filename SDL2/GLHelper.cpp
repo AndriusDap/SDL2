@@ -115,19 +115,29 @@ SDL_Surface* PrepareSurface(SDL_Surface* source)
 	}
 	return formatted;
 }
+
+unordered_map<string, GLuint> textures;
 GLuint GLHelper::LoadTexture(string filePath)
 {
-	auto bmp = IMG_Load(filePath.c_str());
-	auto preparedTexture = PrepareSurface(bmp);
+	try
+	{
+		return textures.at(filePath);
+	} 
+	catch (out_of_range& exception)
+	{
+		auto bmp = IMG_Load(filePath.c_str());
+		auto preparedTexture = PrepareSurface(bmp);
 	
-	GLuint texture;
-	gl::GenTextures(1, &texture);		
-	gl::BindTexture(gl::TEXTURE_2D, texture);	
-	gl::TexStorage2D(gl::TEXTURE_2D, 1, gl::RGBA8, preparedTexture->w, preparedTexture->h);
-	gl::TexSubImage2D(gl::TEXTURE_2D, 0, 0, 0, preparedTexture->w, preparedTexture->h, gl::RGBA, gl::UNSIGNED_INT_8_8_8_8, preparedTexture->pixels);	
-	CheckGlErrors();
+		GLuint texture;
+		gl::GenTextures(1, &texture);		
+		gl::BindTexture(gl::TEXTURE_2D, texture);	
+		gl::TexStorage2D(gl::TEXTURE_2D, 1, gl::RGBA8, preparedTexture->w, preparedTexture->h);
+		gl::TexSubImage2D(gl::TEXTURE_2D, 0, 0, 0, preparedTexture->w, preparedTexture->h, gl::RGBA, gl::UNSIGNED_INT_8_8_8_8, preparedTexture->pixels);	
+		CheckGlErrors();
 
-	SDL_FreeSurface(bmp);
-	SDL_FreeSurface(preparedTexture);
-	return texture;
+		SDL_FreeSurface(bmp);
+		SDL_FreeSurface(preparedTexture);
+		textures[filePath] = texture;
+		return texture;
+	}
 }
