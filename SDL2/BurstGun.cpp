@@ -26,15 +26,19 @@ BurstGun::~BurstGun(void)
 {
 }
 
-void BurstGun::setPosition(glm::vec2 position){
-	Position = position;	ClipPreview.setTranslation(position.x, position.y);}
+void BurstGun::setPosition(glm::vec2 position)
+{
+	Position = position;
+	ClipPreview.setTranslation(position.x, position.y);
+}
 
 void BurstGun::setDirection(float direction)
 {
 	angle = direction;
 }
 
-void BurstGun::Shoot(){
+void BurstGun::Shoot()
+{
 	if(Cooldown <= 0 && Clip > 0)
 	{
 		Clip--;
@@ -47,7 +51,7 @@ void BurstGun::Shoot(){
 				BulletTexture,
 				BulletLifeTime
 				);
-
+		bullet.scale = max((Clip + 1) * 8, 3 * 8);
 		if(Bullets[BulletIterator].Life > 0)
 		{
 			bool foundDead = false;
@@ -88,16 +92,18 @@ void BurstGun::Shoot(){
 			BulletIterator %= BulletCount;
 		}
 		Cooldown = MaxCooldown;
-	}}
+	}
+}
 
-void BurstGun::Update(int gameTime){
+void BurstGun::Update(int gameTime)
+{
 	BulletCraftingTimer += gameTime;
 	while(BulletCraftingTimer >= BulletCraftingCooldown && Clip < ClipSize)
 	{
 		Clip++;
-		BulletCraftingTimer -= BulletCraftingCooldown;
-		
+		BulletCraftingTimer -= BulletCraftingCooldown;		
 	}
+
 	BulletCraftingTimer %= BulletCraftingCooldown;
 	
 	ClipPreview.setScale(Clip * 8);
@@ -110,9 +116,11 @@ void BurstGun::Update(int gameTime){
 	for(auto &bullet : Bullets)
 	{
 		bullet.Update(gameTime);
-	}}
+	}
+}
 
-void BurstGun::Render(Graphics &g){
+void BurstGun::Render(Graphics &g)
+{
 	g.Render(ClipPreview);
 	for(auto &bullet : Bullets)
 	{
@@ -120,4 +128,5 @@ void BurstGun::Render(Graphics &g){
 		{
 			g.Render(bullet);
 		}
-	}}
+	}
+}
