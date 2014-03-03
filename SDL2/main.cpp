@@ -6,40 +6,17 @@
 #include "GLHelper.h"
 #include "BasicEffect.h"
 #include "PlayerShip.h"
-
+#include "LevelManager.h"
+#include "EmptyLevel.h"
+#include <memory>
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	Graphics g(SCREEN_WIDTH, SCREEN_HEIGHT);	
-	
-	bool stop = false;
-	Input input;
-	PlayerShip ship(&input);
+	LevelManager levelManager;
+	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
 
-	const int TICKS_PER_SECOND = 120;
-    const int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
-    const int MAX_FRAMESKIP = 10;
-
-	int next_game_tick = clock();
-	int loops;
-	int last_update = clock();
-
-	while(!input.Quit){
-		loops = 0;		
-		
-		while(clock() > next_game_tick && loops < MAX_FRAMESKIP)
-		{
-			int now = clock();
-			input.Update(now - last_update);
-			ship.Update(now - last_update);			
-			last_update = now;
-			next_game_tick += SKIP_TICKS;
-			loops++;
-		}		
-		ship.Render(g);		
-		g.Flip();
-	}
-	
+	levelManager.Start(g);
 	return 0;
 }

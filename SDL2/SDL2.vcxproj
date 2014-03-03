@@ -68,10 +68,13 @@
   <ItemGroup>
     <ClCompile Include="BasicEffect.cpp" />
     <ClCompile Include="BurstGun.cpp" />
+    <ClCompile Include="EmptyLevel.cpp" />
     <ClCompile Include="GLHelper.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="ILevel.cpp" />
     <ClCompile Include="Includes.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterObject.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -81,13 +84,16 @@
   <ItemGroup>
     <ClInclude Include="BasicEffect.h" />
     <ClInclude Include="BurstGun.h" />
+    <ClInclude Include="EmptyLevel.h" />
     <ClInclude Include="GLHelper.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IGameEntity.h" />
+    <ClInclude Include="ILevel.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IPewPew.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MasterObject.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerShip.h" />
