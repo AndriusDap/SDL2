@@ -24,7 +24,6 @@ void Input::Update(int gameTime)
 	Shoot = false;
 	HorizontalMotion = 0.0f;
 	VerticalMotion = 0.0f;
-	Quit = false;
 
 	int x, y;
 	auto buttons = SDL_GetMouseState(&x, &y);
@@ -36,7 +35,7 @@ void Input::Update(int gameTime)
 	auto keyboard = SDL_GetKeyboardState(NULL);
 	if(keyboard[SDL_SCANCODE_ESCAPE])
 	{
-		Quit = true;
+		//Quit = true;
 	}
 
 	if(keyboard[SDL_SCANCODE_W])
