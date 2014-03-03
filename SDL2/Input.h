@@ -8,6 +8,7 @@ public:
 	Input(void);
 	void Update(int gameTime);
 	void SetPointerAnchor(glm::vec2 anchor);
+	int MousePosition[2];
 	float PointerAngle;
 	bool Shoot;
 	float HorizontalMotion;

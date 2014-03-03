@@ -27,6 +27,8 @@ void Input::Update(int gameTime)
 
 	int x, y;
 	auto buttons = SDL_GetMouseState(&x, &y);
+	MousePosition[0] = x;
+	MousePosition[1] = y;
 	y = SCREEN_HEIGHT - y;
 	PointerAngle = (float) ( 180 - atan2((float)(x - Anchor.x),(float)(y - Anchor.y)) * 180 / 3.14159265);
 	Shoot = buttons & SDL_BUTTON(1);
