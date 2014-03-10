@@ -11,7 +11,7 @@
 class PlayerShip : IGameEntity
 {	
 private:
-	glm::vec2 position;
+	
 	glm::vec2 speed;
 	glm::vec2 thrust;
 	
@@ -28,6 +28,7 @@ public:
 	PlayerShip(Input *Input);
 	~PlayerShip(void);
 	Sprite Ship;
+	glm::vec2 position;
 
 	void Render(Graphics &g);
 	void Update(int deltaTime);

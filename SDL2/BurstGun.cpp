@@ -94,6 +94,10 @@ void BurstGun::Shoot()
 		Cooldown = MaxCooldown;
 	}
 }
+void BurstGun::setTexture(GLuint texture)
+{
+	BulletTexture = texture;
+}
 
 void BurstGun::Update(int gameTime)
 {

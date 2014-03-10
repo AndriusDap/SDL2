@@ -11,5 +11,6 @@ public:
 	virtual void Shoot() = 0;
 	virtual void Update(int gameTime) = 0;
 	virtual void Render(Graphics &g) = 0;
+	virtual void setTexture(GLuint texture) = 0;
 };
 

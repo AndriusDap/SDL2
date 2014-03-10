@@ -80,6 +80,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StupidBot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicEffect.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StupidBot.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentShader.glsl">
