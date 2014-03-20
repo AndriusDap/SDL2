@@ -23,5 +23,5 @@ const double PI = 3.141592653589793;
 }
 
 
-const int SCREEN_WIDTH = 1600;
-const int SCREEN_HEIGHT = 900;
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 700;

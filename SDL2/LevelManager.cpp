@@ -25,9 +25,12 @@ void LevelManager::Start(Graphics &g)
 	
 	levels[currentLevel]->Initialize(g, input);
 	int changeLevel = 0;
+	long frameCount = 0;
+	int startTime = clock();
+
 	while(!input.Quit){
 		loops = 0;		
-		
+		frameCount++;
 		while(clock() > nextLevelTick && loops < MAX_FRAMESKIP && !changeLevel)
 		{
 			int now = clock();
@@ -63,7 +66,9 @@ void LevelManager::Start(Graphics &g)
 		levels[currentLevel]->Render(g);
 		g.Flip();
 	}
-
+	int endTime = clock();
+	OutputDebugString(to_wstring((endTime - startTime)/frameCount).c_str());
+	OutputDebugString(L"\r\n");
 }
 
 void LevelManager::AppendLevel(unique_ptr<ILevel> level)

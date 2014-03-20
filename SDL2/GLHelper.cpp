@@ -47,7 +47,7 @@ GLuint GLHelper::LoadShader(std::string filePath, GLuint shaderType)
 	{	
 		gl::GetShaderInfoLog(shaderId, infoLogLength, NULL, &shaderInfoLog[0]);
 		std::cout << "Info log: " << &shaderInfoLog[0] << std::endl;
-		OutputDebugString(&shaderInfoLog[0]);
+		OutputDebugStringA(&shaderInfoLog[0]);
 	}
 	return shaderId;
 }
@@ -67,7 +67,7 @@ void PrintProgramLog(GLuint programId)
 		std::vector<char> programInfoLog(infoLogLength);
 		gl::GetProgramInfoLog(programId, infoLogLength, NULL, &programInfoLog[0]);
 		std::cout << "Info log: " << &programInfoLog[0] << std::endl;
-		OutputDebugString(&programInfoLog[0]);
+		OutputDebugStringA(&programInfoLog[0]);
 	}
 }
 
@@ -123,7 +123,7 @@ GLuint GLHelper::LoadTexture(string filePath)
 	{
 		return textures.at(filePath);
 	} 
-	catch (out_of_range& exception)
+	catch (out_of_range&)
 	{
 		auto bmp = IMG_Load(filePath.c_str());
 		auto preparedTexture = PrepareSurface(bmp);

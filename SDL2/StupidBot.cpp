@@ -22,7 +22,7 @@ void StupidBot::Spin(int deltaTime)
 	glm::vec2 direction = target->position;
 	rotation = (float) (180 - atan2((float)(direction.x - position.x),(float)(direction.y - position.y)) * 180 / 3.14159265);
 	
-	rotation = fmod(rotation, 360);
+	rotation = fmod(rotation, 360.0f);
 }
 
 void StupidBot::Move(int deltaTime)

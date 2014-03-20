@@ -51,7 +51,7 @@ void BurstGun::Shoot()
 				BulletTexture,
 				BulletLifeTime
 				);
-		bullet.scale = max((Clip + 1) * 8, 3 * 8);
+		bullet.scale = (float) max((Clip + 1) * 8, 3 * 8);
 		if(Bullets[BulletIterator].Life > 0)
 		{
 			bool foundDead = false;
@@ -110,7 +110,7 @@ void BurstGun::Update(int gameTime)
 
 	BulletCraftingTimer %= BulletCraftingCooldown;
 	
-	ClipPreview.setScale(Clip * 8);
+	ClipPreview.setScale((float) Clip * 8);
 
 	if(Cooldown > 0)
 	{
