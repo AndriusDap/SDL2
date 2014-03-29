@@ -1,6 +1,5 @@
-#include "Input.h"
 #include "Includes.h"
-#include <iostream>
+#include "Input.h"
 using namespace std;
 
 Input::Input(void):Anchor(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)

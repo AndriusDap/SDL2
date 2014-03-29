@@ -1,10 +1,9 @@
 #pragma once
 
-#include <glload\gl_4_3.hpp>
-#include <glload\gl_load.hpp>
 #include "Includes.h"
 #include "IRenderable.h"
 #include "BasicEffect.h"
+#include "TextFactory.h"
 
 #ifndef GLContext
 #define GLContext SDL_GLContext
@@ -24,12 +23,15 @@ private:
 	GLuint SquareUV;
 	GLuint LastTexture;
 
+	TextFactory *Text;
+
 public:
 	Graphics(int w, int h);
 	void Flip();
 	glm::mat4 Projection();
 	void Render(IRenderable &s);
 	void StartRendering();
+	void Drawtext(string text, float x, float y);
 	//void Render(Sprite *s, size_t count);
 	~Graphics(void);
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "IGameEntity.h"
 #include "PlayerShip.h"
-#include <memory>
 
 class StupidBot : IGameEntity
 {

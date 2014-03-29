@@ -1,7 +1,8 @@
+#include "Includes.h"
 #include "StupidBot.h"
 #include "GLHelper.h"
 #include "BurstGun.h"
-#include <iostream>
+
 StupidBot::StupidBot():
 	position(500, 500),
 	target(nullptr),
@@ -9,8 +10,8 @@ StupidBot::StupidBot():
 	Ship(),
 	Gun(new BurstGun())
 {
-	Gun->setTexture(GLHelper::LoadTexture("EnemyBullet.png"));
-	Ship.Texture = GLHelper::LoadTexture("Enemy.png");
+	Gun->setTexture(GLHelper::LoadTexture("Assets/EnemyBullet.png"));
+	Ship.Texture = GLHelper::LoadTexture("Assets/Enemy.png");
 	Ship.setScale(100);
 	Ship.setRotation(90);	
 }

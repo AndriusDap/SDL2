@@ -1,6 +1,5 @@
+#include "Includes.h"
 #include "PlayerShip.h"
-#include <cmath>
-#include <iostream>
 #include "GLHelper.h"
 #include "BurstGun.h"
 using namespace std;
@@ -9,10 +8,10 @@ PlayerShip::PlayerShip(Input* Input): position(300, 300), speed(0, 0), thrust(0.
 {
 	MaxSpeed = 0.8;
 	Mass = 0.1;
-	Ship.setScale(100);
+	Ship.setScale(50);
 	Ship.setRotation(90);
 	input = Input;
-	Ship.Texture = GLHelper::LoadTexture("Ship.png");
+	Ship.Texture = GLHelper::LoadTexture("Assets/Ship.png");
 }
 
 

@@ -1,5 +1,4 @@
 #pragma once
-#include <ctime>
 #include "Includes.h"
 #include "Graphics.h"
 #include "MasterObject.h"
@@ -8,7 +7,6 @@
 #include "PlayerShip.h"
 #include "LevelManager.h"
 #include "EmptyLevel.h"
-#include <memory>
 using namespace std;
 
 int main(int argc, char *argv[])

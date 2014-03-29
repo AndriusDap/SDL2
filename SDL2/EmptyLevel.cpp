@@ -1,3 +1,4 @@
+#include "Includes.h"
 #include "EmptyLevel.h"
 
 
@@ -26,7 +27,7 @@ void EmptyLevel::CleanUp(Graphics &g)
 int EmptyLevel::Update(int gameTime)
 {
 	player->Update(gameTime);
-	for each(auto &enemy in enemies)
+	for(auto &enemy : enemies)
 	{
 		enemy->Update(gameTime);
 	}
@@ -36,8 +37,9 @@ int EmptyLevel::Update(int gameTime)
 void EmptyLevel::Render(Graphics &g)
 {
 	player->Render(g);
-	for each(auto &enemy in enemies)
+	for(auto &enemy : enemies)
 	{
 		enemy->Render(g);
 	}
+	g.Drawtext("M", 100, 100);
 }

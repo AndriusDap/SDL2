@@ -1,8 +1,5 @@
 #pragma once
-#include <memory>
-#include <string>
-#include <glload\gl_4_2.hpp>
-
+#include "Includes.h"
 class MasterObject
 {
 private:

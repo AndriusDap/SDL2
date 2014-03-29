@@ -1,8 +1,8 @@
 #pragma once
+#include "Includes.h"
 #include "IPewPew.h"
 #include "Particle.h"
 #include "Sprite.h"
-#include <vector>
 using namespace std;
 
 class BurstGun : public IPewPew

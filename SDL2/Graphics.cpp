@@ -1,5 +1,5 @@
+#include "Includes.h"
 #include "Graphics.h"
-#include <iostream>
 
 Graphics::Graphics(int w, int h)
 {
@@ -36,6 +36,8 @@ Graphics::Graphics(int w, int h)
 		glm::vec3(0, 0, 0), // Camera is directed to screen center
 		glm::vec3(0, 1, 0)  // Head is up
 	);
+	
+	Text = new TextFactory();
 
 	Shader.init();
 	InitializeRectangle();
@@ -63,8 +65,10 @@ void Graphics::Flip()
 {	
 	gl::DisableVertexAttribArray(0);
 	gl::DisableVertexAttribArray(1);
-
 	Shader.end();
+
+	Text->Render(ProjectionMatrix);
+
 	SDL_GL_SwapWindow(main_window);
 
 	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
@@ -106,6 +110,7 @@ void Graphics::Render(IRenderable &renderable)
 
 Graphics::~Graphics(void)
 {
+	delete Text;
 	SDL_GL_DeleteContext(main_context);
 	SDL_DestroyWindow(main_window);
 
@@ -151,4 +156,9 @@ void Graphics::InitializeRectangle()
 	gl::BindBuffer(gl::ARRAY_BUFFER, SquareUV);
 	gl::BufferData(gl::ARRAY_BUFFER, sizeof(UV), UV, gl::STATIC_DRAW);
 	gl::VertexAttribPointer(1, 2, gl::FLOAT, gl::FALSE_, 0, 0);
+}
+
+void Graphics::Drawtext(string text, float x, float y)
+{
+	Text->RenderText(text, x, y);
 }

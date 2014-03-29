@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeaderFile>Includes.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -58,6 +59,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PrecompiledHeaderFile>Includes.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -83,6 +85,7 @@
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StupidBot.cpp" />
+    <ClCompile Include="TextFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicEffect.h" />
@@ -103,14 +106,13 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StupidBot.h" />
+    <ClInclude Include="TextFactory.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentShader.glsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="vertexShader.glsl">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
+    <None Include="Assets\FontFragmentShader.glsl" />
+    <None Include="Assets\FontVertexShader.glsl" />
+    <None Include="Assets\fragmentShader.glsl" />
+    <None Include="Assets\vertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

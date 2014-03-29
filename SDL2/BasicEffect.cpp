@@ -1,3 +1,4 @@
+#include "Includes.h"
 #include "BasicEffect.h"
 #include "GLHelper.h"
 
@@ -8,8 +9,8 @@ BasicEffect::BasicEffect(void)
 
 void BasicEffect::init()
 {
-	FragmentShader = GLHelper::LoadShader("fragmentShader.glsl", gl::FRAGMENT_SHADER);
-	VertexShader = GLHelper::LoadShader("vertexShader.glsl", gl::VERTEX_SHADER);
+	FragmentShader = GLHelper::LoadShader("Assets/fragmentShader.glsl", gl::FRAGMENT_SHADER);
+	VertexShader = GLHelper::LoadShader("Assets/vertexShader.glsl", gl::VERTEX_SHADER);
 	Program = GLHelper::CreateProgram(FragmentShader, VertexShader);
 
 	// Get fields:

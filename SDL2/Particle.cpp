@@ -1,3 +1,4 @@
+#include "Includes.h"
 #include "Particle.h"
 
 Particle::Particle(glm::vec2 speed, glm::vec2 position, GLuint texture, int lifeTime)

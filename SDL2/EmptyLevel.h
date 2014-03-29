@@ -1,10 +1,9 @@
 #pragma once
-#include "ILevel.h"
+
 #include "Includes.h"
+#include "ILevel.h"
 #include "PlayerShip.h"
 #include "StupidBot.h"
-#include <vector>
-#include <memory>
 
 class EmptyLevel : public ILevel
 {

@@ -1,8 +1,5 @@
+#include "Includes.h"
 #include "MasterObject.h"
-#include <string>
-#include <fstream>
-#include <cassert>
-#include <vector>
 using namespace std;
 
 MasterObject::MasterObject(void)

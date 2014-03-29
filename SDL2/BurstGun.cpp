@@ -1,3 +1,4 @@
+#include "Includes.h"
 #include "BurstGun.h"
 #include "GLHelper.h"
 
@@ -16,7 +17,7 @@ BurstGun::BurstGun(void):
 	BulletCraftingTimer(0),
 	BulletCraftingCooldown(2 * 100)
 {
-	BulletTexture = GLHelper::LoadTexture("Bullet.png");
+	BulletTexture = GLHelper::LoadTexture("Assets/Bullet.png");
 	ClipPreview.Texture = BulletTexture;
 	ClipPreview.setRotation(0);
 }
