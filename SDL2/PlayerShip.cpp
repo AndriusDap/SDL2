@@ -29,14 +29,12 @@ void PlayerShip::Spin(int deltaTime)
 
 bool PlayerShip::Dead()
 {
-	cout << "Is dead?" << endl;
 	return false;
 }
 
 
 void PlayerShip::Collide(Particle &P)
 {
-	cout << "Collision, player ship" << endl;
 	P.Speed = -P.Speed; 
 	P.Life += 5000;
 }

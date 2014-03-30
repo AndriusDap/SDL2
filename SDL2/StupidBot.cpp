@@ -39,6 +39,7 @@ void StupidBot::Collide(Particle &P)
 {
 	P.Speed = -P.Speed; 
 	P.Life += 5000;
+	IsDead = true;
 }
 
 void StupidBot::Move(int deltaTime)

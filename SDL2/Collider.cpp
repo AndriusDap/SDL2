@@ -28,12 +28,15 @@ void Collider::Update(int deltaTime)
 	{
 		for(auto &p : Particles[i])
 		{
-			p.Update(deltaTime);
-			for(auto &s : Ships[i])
-			{
-				if(s->CheckCollision(p))
+			if(p.Life > 0){
+				p.Update(deltaTime);
+				for(auto &s : Ships[i])
 				{
-					s->Collide(p);
+					if(s->CheckCollision(p))
+					{
+						s->Collide(p);
+						p.Life = 0;
+					}
 				}
 			}
 		}
