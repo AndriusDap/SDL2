@@ -5,8 +5,9 @@
 #include "IGameEntity.h"
 #include "Input.h"
 #include "IPewPew.h"
+#include "Collider.h"
 
-class PlayerShip : IGameEntity
+class PlayerShip : public IGameEntity, public TriangleCollidable
 {	
 private:
 	
@@ -21,14 +22,18 @@ private:
 	void Spin(int deltaTime);
 	void Move(int deltaTime);
 	std::unique_ptr<IPewPew> Gun;
+
 	
 public:
-	PlayerShip(Input *Input);
+	PlayerShip(Input *Input, Collider &collider);
 	~PlayerShip(void);
 	Sprite Ship;
 	glm::vec2 position;
 
 	void Render(Graphics &g);
 	void Update(int deltaTime);
+	
+	virtual void Collide(Particle &P);
+	virtual bool Dead();
 };
 

@@ -15,6 +15,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include <fstream>
 #include <cassert>
+#include <algorithm>
+#include <future>
 using namespace std;
 
 const double PI = 3.141592653589793;

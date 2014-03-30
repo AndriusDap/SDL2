@@ -4,7 +4,8 @@
 #include "BurstGun.h"
 using namespace std;
 
-PlayerShip::PlayerShip(Input* Input): position(300, 300), speed(0, 0), thrust(0.01, 0.01), Gun(new BurstGun())
+PlayerShip::PlayerShip(Input* Input, Collider &collider): position(300, 300), speed(0, 0), thrust(0.01, 0.01),
+	Gun(new BurstGun([&collider](Particle &p){collider.AddBullet(p, 1);}))
 {
 	MaxSpeed = 0.8;
 	Mass = 0.1;
@@ -12,6 +13,8 @@ PlayerShip::PlayerShip(Input* Input): position(300, 300), speed(0, 0), thrust(0.
 	Ship.setRotation(90);
 	input = Input;
 	Ship.Texture = GLHelper::LoadTexture("Assets/Ship.png");
+	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
+	SetTriangle(Triangle);
 }
 
 
@@ -22,6 +25,20 @@ PlayerShip::~PlayerShip()
 void PlayerShip::Spin(int deltaTime)
 {
 	rotation = input->PointerAngle;
+}
+
+bool PlayerShip::Dead()
+{
+	cout << "Is dead?" << endl;
+	return false;
+}
+
+
+void PlayerShip::Collide(Particle &P)
+{
+	cout << "Collision, player ship" << endl;
+	P.Speed = -P.Speed; 
+	P.Life += 5000;
 }
 
 void PlayerShip::Move(int deltaTime)
@@ -93,4 +110,7 @@ void PlayerShip::Update(int deltaTime)
 		Gun->Shoot();
 	}
 	input->SetPointerAnchor(position);
+
+	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
+	SetTriangle(Triangle);
 }

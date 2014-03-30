@@ -15,8 +15,15 @@ EmptyLevel::~EmptyLevel(void)
 
 void EmptyLevel::Initialize(Graphics &g, Input &input)
 {
-	player.reset(new PlayerShip(&input));
-	enemies.emplace_back(new StupidBot());
+	
+	player.reset(new PlayerShip(&input, collider));	
+	enemies.emplace_back(new StupidBot(collider));
+	collider.AddShip(static_pointer_cast<TriangleCollidable>(player), 0);
+	for(auto &e : enemies)
+	{
+		collider.AddShip(static_pointer_cast<TriangleCollidable>(e), 1);
+	}
+
 	enemies[0]->target = player;
 }
 
@@ -31,6 +38,7 @@ int EmptyLevel::Update(int gameTime)
 	{
 		enemy->Update(gameTime);
 	}
+	collider.Update(gameTime);
 	return 0;
 }
 
@@ -41,5 +49,6 @@ void EmptyLevel::Render(Graphics &g)
 	{
 		enemy->Render(g);
 	}
-	g.Drawtext("M", 100, 100);
+	collider.Render(g);
+	//g.Drawtext("M", 100, 100);
 }

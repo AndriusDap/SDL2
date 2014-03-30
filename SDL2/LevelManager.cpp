@@ -68,7 +68,7 @@ void LevelManager::Start(Graphics &g)
 		g.Flip();
 	}
 	int endTime = clock();
-	OutputDebugString(to_wstring((endTime - startTime)/frameCount).c_str());
+	OutputDebugString(to_wstring(((double) endTime - startTime)/frameCount).c_str());
 	OutputDebugString(L"\r\n");
 }
 

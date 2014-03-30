@@ -1,8 +1,9 @@
 #pragma once
 #include "IGameEntity.h"
 #include "PlayerShip.h"
-
-class StupidBot : IGameEntity
+#include "Collider.h"
+#include "TriangleCollidable.h"
+class StupidBot : public IGameEntity, public TriangleCollidable
 {
 	void Spin(int deltaTime);
 	void Move(int deltaTime);
@@ -13,14 +14,17 @@ class StupidBot : IGameEntity
 	glm::vec2 thrust;
 	float MaxSpeed;
 	float rotation;
-	
+	bool IsDead;
 	Sprite Ship;
 public:
-	StupidBot(void);
+	StupidBot(Collider &collider);
 	void Render(Graphics &g);
 	void Update(int deltaTime);
 	
 	std::shared_ptr<PlayerShip> target;
 	~StupidBot(void);
+	
+	virtual void Collide(Particle &P);
+	virtual bool Dead();
 };
 

@@ -72,6 +72,7 @@
   <ItemGroup>
     <ClCompile Include="BasicEffect.cpp" />
     <ClCompile Include="BurstGun.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="EmptyLevel.cpp" />
     <ClCompile Include="GLHelper.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -86,10 +87,12 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StupidBot.cpp" />
     <ClCompile Include="TextFactory.cpp" />
+    <ClCompile Include="TriangleCollidable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicEffect.h" />
     <ClInclude Include="BurstGun.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="EmptyLevel.h" />
     <ClInclude Include="GLHelper.h" />
     <ClInclude Include="Graphics.h" />
@@ -107,6 +110,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StupidBot.h" />
     <ClInclude Include="TextFactory.h" />
+    <ClInclude Include="TriangleCollidable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\FontFragmentShader.glsl" />

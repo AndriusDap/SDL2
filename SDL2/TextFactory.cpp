@@ -105,13 +105,19 @@ void TextFactory::Prepare(string text)
 		{
 			auto uv = TextureCoordinates.at(c);
 			//First triangle
-			uv_data.emplace_back(uv.second);			uv_data.emplace_back(1.0f);
-			uv_data.emplace_back(uv.first);			uv_data.emplace_back(0.0f);
-			uv_data.emplace_back(uv.second);			uv_data.emplace_back(0.0f);
+			uv_data.emplace_back(uv.second);
+			uv_data.emplace_back(1.0f);
+			uv_data.emplace_back(uv.first);
+			uv_data.emplace_back(0.0f);
+			uv_data.emplace_back(uv.second);
+			uv_data.emplace_back(0.0f);
 			//Second triangle
-			uv_data.emplace_back(uv.second);			uv_data.emplace_back(1.0f);
-			uv_data.emplace_back(uv.first);			uv_data.emplace_back(1.0f);
-			uv_data.emplace_back(uv.first);			uv_data.emplace_back(0.0f);
+			uv_data.emplace_back(uv.second);
+			uv_data.emplace_back(1.0f);
+			uv_data.emplace_back(uv.first);
+			uv_data.emplace_back(1.0f);
+			uv_data.emplace_back(uv.first);
+			uv_data.emplace_back(0.0f);
 
 			// geometry:
 			float width = uv.second - uv.first;
@@ -120,13 +126,25 @@ void TextFactory::Prepare(string text)
 			float bottom = 0;
 			float top = 1;
 			// first triangle
-			geometry_data.emplace_back(right);			geometry_data.emplace_back(top);			geometry_data.emplace_back(0.0f);
-			geometry_data.emplace_back(left);			geometry_data.emplace_back(bottom);			geometry_data.emplace_back(0.0f);
-			geometry_data.emplace_back(right);			geometry_data.emplace_back(bottom);			geometry_data.emplace_back(0.0f);
+			geometry_data.emplace_back(right);
+			geometry_data.emplace_back(top);
+			geometry_data.emplace_back(0.0f);
+			geometry_data.emplace_back(left);
+			geometry_data.emplace_back(bottom);
+			geometry_data.emplace_back(0.0f);
+			geometry_data.emplace_back(right);
+			geometry_data.emplace_back(bottom);
+			geometry_data.emplace_back(0.0f);
 			// second triangle
-			geometry_data.emplace_back(right);			geometry_data.emplace_back(top);			geometry_data.emplace_back(0.0f);
-			geometry_data.emplace_back(left);			geometry_data.emplace_back(top);			geometry_data.emplace_back(0.0f);
-			geometry_data.emplace_back(left);			geometry_data.emplace_back(bottom);			geometry_data.emplace_back(0.0f);
+			geometry_data.emplace_back(right);
+			geometry_data.emplace_back(top);
+			geometry_data.emplace_back(0.0f);
+			geometry_data.emplace_back(left);
+			geometry_data.emplace_back(top);
+			geometry_data.emplace_back(0.0f);
+			geometry_data.emplace_back(left);
+			geometry_data.emplace_back(bottom);
+			geometry_data.emplace_back(0.0f);
 			cursor += width;
 		}
 		for(auto &element : geometry_data)
@@ -154,6 +172,7 @@ void TextFactory::Prepare(string text)
 		gl::VertexAttribPointer(1, 3, gl::FLOAT, gl::FALSE_, 0, 0);
 
 		gl::BindVertexArray(0);
+
 		buffers.emplace_back(vbouv);
 		buffers.emplace_back(vbogeom);
 		Strings[text] = vao;

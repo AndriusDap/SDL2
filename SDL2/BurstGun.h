@@ -3,6 +3,8 @@
 #include "IPewPew.h"
 #include "Particle.h"
 #include "Sprite.h"
+#include "Collider.h"
+
 using namespace std;
 
 class BurstGun : public IPewPew
@@ -23,8 +25,9 @@ class BurstGun : public IPewPew
 	glm::vec2 Speed;
 
 	Sprite ClipPreview;
+	function<void(Particle)> BulletTarget;
 public:
-	BurstGun(void);
+	BurstGun(function<void(Particle)> BulletStuff);
 	~BurstGun(void);
 	void setDirection(float angle);
 	void setPosition(glm::vec2 position);

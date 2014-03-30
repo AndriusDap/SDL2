@@ -5,11 +5,13 @@
 class Particle : public IRenderable
 {
 private:
+
+	
+public:
 	glm::vec3 Speed;
 	glm::mat4 Transformation;
 	glm::vec3 Position;	
-	
-public:
+
 	float scale;
 	Particle(glm::vec2 speed, glm::vec2 position, GLuint texture, int lifeTime);
 	glm::mat4 getTransformation();
