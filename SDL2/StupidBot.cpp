@@ -37,9 +37,8 @@ bool StupidBot::Dead()
 
 void StupidBot::Collide(Particle &P)
 {
-	P.Speed = -P.Speed; 
-	P.Life += 5000;
 	IsDead = true;
+	cout << "stupid  collision, dead: " << this->Dead() << endl;
 }
 
 void StupidBot::Move(int deltaTime)

@@ -38,11 +38,14 @@ int EmptyLevel::Update(int gameTime)
 	{
 		enemy->Update(gameTime);
 	}
+	collider.Update(gameTime);
+	
 	vector<shared_ptr<StupidBot>> spawns;
 	for(auto &enemy : enemies)
 	{
 		if(enemy->Dead())
 		{
+			cout << "Killing" << endl;
 			auto vect = enemy->position - player->position;
 			vect = glm::normalize(vect);
 			vect = vect * 200.0f;
@@ -64,14 +67,21 @@ int EmptyLevel::Update(int gameTime)
 	auto deadguys = remove_if(enemies.begin(), enemies.end(), [](shared_ptr<StupidBot> enemy){return enemy->Dead();});
 	enemies.erase(deadguys, enemies.end());
 
-	collider.Update(gameTime);
+
 	size_t spanws_count = spawns.size();
 	if(spanws_count != 0)
 	{
-		cout << "Spawn " << spanws_count << "Total count" << enemies.size() << endl;
-		enemies.insert(enemies.end(), spawns.begin(), spawns.begin() + 2);
+		cout << "Spawn " << spanws_count << " Total count " << enemies.size() << endl;
+		enemies.insert(enemies.end(), spawns.begin(), spawns.end());
 	}
-	return 0;
+	if(player->Dead())
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 void EmptyLevel::Render(Graphics &g)

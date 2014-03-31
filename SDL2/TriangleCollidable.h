@@ -11,7 +11,7 @@ public:
 
 	bool CheckCollision(Particle &P);
 	virtual void Collide(Particle &P){};
-	virtual bool Dead(){ return false;};
+	virtual bool Dead(){ cout << "fuck" << endl; return false;};
 	virtual ~TriangleCollidable(void){};
 };
 

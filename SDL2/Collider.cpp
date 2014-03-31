@@ -44,7 +44,10 @@ void Collider::Update(int deltaTime)
 
 		auto dead_guys = remove_if(Particles[i].begin(), Particles[i].end(), [](Particle p){return p.Life <= 0;});
 		Particles[i].erase(dead_guys, Particles[i].end());
+		auto dead_ships = remove_if(Ships[i].begin(), Ships[i].end(), [](shared_ptr<TriangleCollidable> ship){return ship->Dead();});
+		Ships[i].erase(dead_ships, Ships[i].end());
 	}
+
 }
 	
 void Collider::AddBullet(Particle P, int collisionLevel)
