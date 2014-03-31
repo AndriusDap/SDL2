@@ -36,6 +36,7 @@ void Collider::Update(int deltaTime)
 					{
 						s->Collide(p);
 						p.Life = 0;
+						break;
 					}
 				}
 			}
