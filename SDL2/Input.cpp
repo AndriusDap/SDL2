@@ -2,8 +2,9 @@
 #include "Input.h"
 using namespace std;
 
-Input::Input(void):Anchor(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+Input::Input(GLFWwindow *Window):Anchor(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 {
+	window = Window;
 	PointerAngle = 0;
 	Shoot = false;
 	HorizontalMotion = 0.0f;
@@ -25,48 +26,38 @@ void Input::Update(int gameTime)
 	VerticalMotion = 0.0f;
 
 	int x, y;
-	auto buttons = SDL_GetMouseState(&x, &y);
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+	x = (int) floor(xpos);
+	y = (int) floor(ypos);
+	
 	MousePosition[0] = x;
 	MousePosition[1] = y;
 	y = SCREEN_HEIGHT - y;
 	PointerAngle = (float) ( 180 - atan2((float)(x - Anchor.x),(float)(y - Anchor.y)) * 180 / 3.14159265);
-	Shoot = buttons & SDL_BUTTON(1);
+	Shoot = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
 	
-	SDL_PumpEvents();
-	auto keyboard = SDL_GetKeyboardState(NULL);
-	if(keyboard[SDL_SCANCODE_ESCAPE])
-	{
-		//Quit = true;
-	}
 
-	if(keyboard[SDL_SCANCODE_W])
+	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		VerticalMotion = 1.0f;
 	}
 	
-	if(keyboard[SDL_SCANCODE_S])
+	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		VerticalMotion = -1.0f;
 	}
 
-	if(keyboard[SDL_SCANCODE_A])
+	if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		HorizontalMotion = -1.0f;
 	}
 
-	if(keyboard[SDL_SCANCODE_D])
+	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		HorizontalMotion = 1.0f;
 	}
-
-	SDL_Event Event;
-	while(SDL_PollEvent(&Event))
-	{
-		if(Event.type == SDL_QUIT)
-		{
-			Quit = true;
-		}
-	}	
+	Quit = glfwWindowShouldClose(window) == 1? true : false;
 }
 
 Input::~Input(void)

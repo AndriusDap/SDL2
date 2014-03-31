@@ -38,7 +38,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)external\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)external\lib\Win32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)external\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)external\lib\Win32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -49,7 +56,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;Opengl32.lib;glloadD.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -65,7 +73,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib;SDL2_Image.lib;SDL2main.lib;SDL2test.lib;Opengl32.lib;glload.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -81,12 +90,10 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MasterObject.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StupidBot.cpp" />
-    <ClCompile Include="TextFactory.cpp" />
     <ClCompile Include="TriangleCollidable.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,18 +110,14 @@
     <ClInclude Include="IPewPew.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="MasterObject.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StupidBot.h" />
-    <ClInclude Include="TextFactory.h" />
     <ClInclude Include="TriangleCollidable.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\FontFragmentShader.glsl" />
-    <None Include="Assets\FontVertexShader.glsl" />
     <None Include="Assets\fragmentShader.glsl" />
     <None Include="Assets\vertexShader.glsl" />
   </ItemGroup>

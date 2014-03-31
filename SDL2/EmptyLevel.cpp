@@ -45,7 +45,6 @@ int EmptyLevel::Update(int gameTime)
 	{
 		if(enemy->Dead())
 		{
-			cout << "Killing" << endl;
 			auto vect = enemy->position - player->position;
 			vect = glm::normalize(vect);
 			vect = vect * 200.0f;
@@ -71,7 +70,6 @@ int EmptyLevel::Update(int gameTime)
 	size_t spanws_count = spawns.size();
 	if(spanws_count != 0)
 	{
-		cout << "Spawn " << spanws_count << " Total count " << enemies.size() << endl;
 		enemies.insert(enemies.end(), spawns.begin(), spawns.end());
 	}
 	if(player->Dead())

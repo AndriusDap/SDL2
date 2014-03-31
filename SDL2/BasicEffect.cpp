@@ -9,41 +9,41 @@ BasicEffect::BasicEffect(void)
 
 void BasicEffect::init()
 {
-	FragmentShader = GLHelper::LoadShader("Assets/fragmentShader.glsl", gl::FRAGMENT_SHADER);
-	VertexShader = GLHelper::LoadShader("Assets/vertexShader.glsl", gl::VERTEX_SHADER);
+	FragmentShader = GLHelper::LoadShader("Assets/fragmentShader.glsl", GL_FRAGMENT_SHADER);
+	VertexShader = GLHelper::LoadShader("Assets/vertexShader.glsl", GL_VERTEX_SHADER);
 	Program = GLHelper::CreateProgram(FragmentShader, VertexShader);
 
 	// Get fields:
-	ModelHandle = gl::GetUniformLocation(Program, "Model");
-	ViewHandle = gl::GetUniformLocation(Program, "View");
-	ProjectionHandle = gl::GetUniformLocation(Program, "Projection");
-	TextureHandle = gl::GetUniformLocation(Program, "TextureSampler");
+	ModelHandle = glGetUniformLocation(Program, "Model");
+	ViewHandle = glGetUniformLocation(Program, "View");
+	ProjectionHandle = glGetUniformLocation(Program, "Projection");
+	TextureHandle = glGetUniformLocation(Program, "TextureSampler");
 	CheckGlErrors();
 }
 
 void BasicEffect::setModel(glm::mat4 Model)
 {
-	gl::UniformMatrix4fv(ModelHandle, 1, 0, &Model[0][0]);
+	glUniformMatrix4fv(ModelHandle, 1, 0, &Model[0][0]);
 }
 
 void BasicEffect::setProjection(glm::mat4 Projection)
 {
-	gl::UniformMatrix4fv(ProjectionHandle, 1, 0, &Projection[0][0]);
+	glUniformMatrix4fv(ProjectionHandle, 1, 0, &Projection[0][0]);
 }
 
 void BasicEffect::setView(glm::mat4 View)
 {
-	gl::UniformMatrix4fv(ViewHandle, 1, 0, &View[0][0]);
+	glUniformMatrix4fv(ViewHandle, 1, 0, &View[0][0]);
 }
 
 void BasicEffect::setTexture(GLuint Texture)
 {
-	gl::Uniform1i(TextureHandle, Texture);
+	glUniform1i(TextureHandle, Texture);
 }
 
 void BasicEffect::begin()
 {
-	gl::UseProgram(Program);
+	glUseProgram(Program);
 }
 
 void BasicEffect::end()
@@ -53,7 +53,7 @@ void BasicEffect::end()
 
 BasicEffect::~BasicEffect(void)
 {
-	gl::DeleteShader(FragmentShader);
-	gl::DeleteShader(VertexShader);
-	gl::DeleteProgram(Program);
+	glDeleteShader(FragmentShader);
+	glDeleteShader(VertexShader);
+	glDeleteProgram(Program);
 }

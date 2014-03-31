@@ -3,84 +3,98 @@
 
 Graphics::Graphics(int w, int h)
 {
-
-	if(SDL_Init(SDL_INIT_EVERYTHING) < 0){
-		exit(-1);
+	if(!glfwInit())
+	{
+		cerr << "Error initializing glfw" << endl;
 	}
 
-	if(SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4)){
-		std::cout << "Cannot get major version" << std::endl;
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
+
+
+
+	main_window = glfwCreateWindow(w, h, "PEW PEW", NULL, NULL);
+	glfwMakeContextCurrent(main_window);
+	GLenum glew_error = glewInit();
+	if (GLEW_OK != glew_error)
+	{
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(glew_error));
 	}
-	if(SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3)){
-		std::cout << "Cannot get minor version" << std::endl;
+	cout << "Vendor: " << glGetString(GL_VENDOR) << endl;
+	cout << "Renderer: " << glGetString(GL_RENDERER) << endl;
+	cout << "OpenGL version: " << glGetString(GL_VERSION) << endl;
+	cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+
+	if( glew_error != GLEW_OK )
+	{
+		cerr << "Error initializing GLEW: " << glewGetErrorString(glew_error) << endl;
+		exit(1);
 	}
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
-	main_window = SDL_CreateWindow("OPENGL", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-	
-	
-	main_context = SDL_GL_CreateContext(main_window);
-	
-	glload::LoadFunctions();
-	
-	gl::Disable(gl::DEPTH_TEST);
-	gl::DepthFunc(gl::LESS);
-	gl::Enable(gl::MULTISAMPLE);
-	gl::BlendFunc(gl::SRC_ALPHA, gl::ONE_MINUS_SRC_ALPHA);
-	gl::Enable(gl::BLEND);
+
+	if( !GLEW_VERSION_3_3 )
+	{
+		cerr << "Error: GL3.3 is required" << endl;
+		exit(1);
+	}
+
+
+	glDisable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_MULTISAMPLE);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
 	ProjectionMatrix = glm::ortho((float) 0, (float) w, (float) 0, (float) h, (float) 0.01, (float) 100);
-	
+
 	ViewMatrix = glm::lookAt(
 		glm::vec3(0, 0, 3), // Camera location
 		glm::vec3(0, 0, 0), // Camera is directed to screen center
 		glm::vec3(0, 1, 0)  // Head is up
-	);
-	
-	Text = new TextFactory();
+		);
 
 	Shader.init();
 	InitializeRectangle();
 	StartRendering();
 
-	//gl::ClearColor(0.8f, 0.8f, 0.8f, 1.0);
+	glClearColor(0.8f, 0.8f, 0.8f, 1.0);
 }
 
 void Graphics::StartRendering()
 {
-	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
-	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	Shader.begin();
 	Shader.setProjection(ProjectionMatrix);
 	Shader.setView(ViewMatrix);
-	
-	gl::EnableVertexAttribArray(0);		
-	gl::BindBuffer(gl::ARRAY_BUFFER, SquareVBO);	
-	gl::EnableVertexAttribArray(1);
-	gl::BindBuffer(gl::ARRAY_BUFFER, SquareUV);
+
+	glEnableVertexAttribArray(0);		
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);	
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
 	CheckGlErrors();
 }
 
 void Graphics::Flip()
 {	
-	gl::DisableVertexAttribArray(0);
-	gl::DisableVertexAttribArray(1);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	Shader.end();
 
-	Text->Render(ProjectionMatrix);
 
-	SDL_GL_SwapWindow(main_window);
 
-	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
-	
+	glfwSwapBuffers(main_window);
+	glfwPollEvents();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	Shader.begin();
 	Shader.setProjection(ProjectionMatrix);
 	Shader.setView(ViewMatrix);
-	
-	gl::EnableVertexAttribArray(0);		
-	gl::BindBuffer(gl::ARRAY_BUFFER, SquareVBO);	
-	gl::EnableVertexAttribArray(1);
-	gl::BindBuffer(gl::ARRAY_BUFFER, SquareUV);	
+
+	glEnableVertexAttribArray(0);		
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);	
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);	
 	LastTexture = 0;
 	CheckGlErrors();
 }
@@ -97,36 +111,32 @@ void Graphics::Render(IRenderable &renderable)
 	GLuint texture = renderable.getTexture();
 	if(LastTexture != texture)
 	{
-		gl::ActiveTexture(gl::TEXTURE0);
-		gl::BindTexture(gl::TEXTURE_2D, texture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture);
 		Shader.setTexture(0);
 		LastTexture = texture;
 	}
-	
-	gl::DrawArrays(gl::TRIANGLES, 0, 6);		
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);		
 	CheckGlErrors();
 }
 
 
 Graphics::~Graphics(void)
 {
-	delete Text;
-	SDL_GL_DeleteContext(main_context);
-	SDL_DestroyWindow(main_window);
-
-	SDL_Quit();
+	glfwTerminate();
 }
 
 void Graphics::InitializeRectangle()
 {
 	float SquareCoordinateArray[] = {
-		
-		 0.5f, 0.5f, 0.0f,
-		 -0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f, 0.5f, 0.0f,
-		 -0.5f, 0.5f, 0.0f,
-		 -0.5f, -0.5f, 0.0f,
+
+		0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
 	};
 	float UV[] = {
 		1.0f, 1.0f,
@@ -139,26 +149,21 @@ void Graphics::InitializeRectangle()
 
 	SquareVBO;
 	// Generate new VBO and store it at SquareVBO
-	gl::GenBuffers(1, &SquareVBO);
+	glGenBuffers(1, &SquareVBO);
 
 	// Make it active
-	gl::BindBuffer(gl::ARRAY_BUFFER, SquareVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);
 
 	// Upload vertex data to gpu
-	gl::BufferData(gl::ARRAY_BUFFER, sizeof(SquareCoordinateArray), SquareCoordinateArray, gl::STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(SquareCoordinateArray), SquareCoordinateArray, GL_STATIC_DRAW);
 
 	// Specify that out coordinate data is going into attribute index 0  and contains three floats per vertex
-	gl::VertexAttribPointer(0, 3, gl::FLOAT, gl::FALSE_, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	SquareUV;
-	gl::GenBuffers(1, &SquareUV);
+	glGenBuffers(1, &SquareUV);
 
-	gl::BindBuffer(gl::ARRAY_BUFFER, SquareUV);
-	gl::BufferData(gl::ARRAY_BUFFER, sizeof(UV), UV, gl::STATIC_DRAW);
-	gl::VertexAttribPointer(1, 2, gl::FLOAT, gl::FALSE_, 0, 0);
-}
-
-void Graphics::Drawtext(string text, float x, float y)
-{
-	Text->RenderText(text, x, y);
+	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(UV), UV, GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }

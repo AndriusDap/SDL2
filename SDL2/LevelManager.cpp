@@ -2,7 +2,8 @@
 #include "LevelManager.h"
 
 
-LevelManager::LevelManager(void)
+LevelManager::LevelManager(Graphics &g)
+	: input(g.main_window)
 {
 }
 
@@ -68,8 +69,8 @@ void LevelManager::Start(Graphics &g)
 		g.Flip();
 	}
 	int endTime = clock();
-	OutputDebugString(to_wstring(((double) endTime - startTime)/frameCount).c_str());
-	OutputDebugString(L"\r\n");
+//	OutputDebugString(to_wstring(((double) endTime - startTime)/frameCount).c_str());
+//	OutputDebugString(L"\r\n");
 }
 
 void LevelManager::AppendLevel(unique_ptr<ILevel> level)

@@ -13,7 +13,7 @@ private:
 	Input input;
 
 public:
-	LevelManager(void);
+	LevelManager(Graphics &g);
 	void Start(Graphics &g);
 	void AppendLevel(unique_ptr<ILevel> level);
 	~LevelManager(void);

@@ -24,9 +24,6 @@
     <ClCompile Include="GLHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MasterObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BasicEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,9 +57,6 @@
     <ClCompile Include="StupidBot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,9 +72,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MasterObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Includes.h">
@@ -125,9 +116,6 @@
     <ClInclude Include="StupidBot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,8 +124,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\FontFragmentShader.glsl" />
-    <None Include="Assets\FontVertexShader.glsl" />
     <None Include="Assets\fragmentShader.glsl" />
     <None Include="Assets\vertexShader.glsl" />
   </ItemGroup>
