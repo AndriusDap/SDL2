@@ -1,6 +1,6 @@
 #pragma once
-#define GLFW_INCLUDE_GL_3
 #include <GL/glew.h>
+#define GLFW_INCLUDE_GL_3
 #include <GLFW/glfw3.h>
 #include <string>
 #include <intrin.h>
@@ -8,6 +8,7 @@
 #include <chrono>
 #include <cmath>
 #include <iostream>
+#include <sstream>
 #include <unordered_map>
 #include <vector>
 #include <memory>

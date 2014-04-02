@@ -16,16 +16,23 @@ Graphics::Graphics(int w, int h)
 
 	main_window = glfwCreateWindow(w, h, "PEW PEW", NULL, NULL);
 	glfwMakeContextCurrent(main_window);
+	glewExperimental = true;
 	GLenum glew_error = glewInit();
+	glGetError();
+	
 	if (GLEW_OK != glew_error)
 	{
 		/* Problem: glewInit failed, something is seriously wrong. */
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(glew_error));
-	}
+	}	
 	cout << "Vendor: " << glGetString(GL_VENDOR) << endl;
+	CheckGlErrors();
 	cout << "Renderer: " << glGetString(GL_RENDERER) << endl;
+	CheckGlErrors();
 	cout << "OpenGL version: " << glGetString(GL_VERSION) << endl;
-	cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+	CheckGlErrors();
+	cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;	
+	CheckGlErrors();
 
 	if( glew_error != GLEW_OK )
 	{
@@ -39,12 +46,18 @@ Graphics::Graphics(int w, int h)
 		exit(1);
 	}
 
-
+	CheckGlErrors();
 	glDisable(GL_DEPTH_TEST);
+	CheckGlErrors();
 	glDepthFunc(GL_LESS);
+	CheckGlErrors();
 	glEnable(GL_MULTISAMPLE);
+	CheckGlErrors();
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	CheckGlErrors();
 	glEnable(GL_BLEND);
+	
+	CheckGlErrors();
 	ProjectionMatrix = glm::ortho((float) 0, (float) w, (float) 0, (float) h, (float) 0.01, (float) 100);
 
 	ViewMatrix = glm::lookAt(
@@ -52,12 +65,18 @@ Graphics::Graphics(int w, int h)
 		glm::vec3(0, 0, 0), // Camera is directed to screen center
 		glm::vec3(0, 1, 0)  // Head is up
 		);
-
+	
+	CheckGlErrors();
 	Shader.init();
 	InitializeRectangle();
+	
+	CheckGlErrors();
 	StartRendering();
-
+	
+	CheckGlErrors();
 	glClearColor(0.8f, 0.8f, 0.8f, 1.0);
+	
+	CheckGlErrors();
 }
 
 void Graphics::StartRendering()
