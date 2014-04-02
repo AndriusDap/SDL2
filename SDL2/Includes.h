@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <intrin.h>
+#include <cstdlib>
 #include <cstdio>
 #include <chrono>
 #include <cmath>

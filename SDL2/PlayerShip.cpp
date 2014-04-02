@@ -14,7 +14,8 @@ PlayerShip::PlayerShip(Input* Input, Collider &collider): position(300, 300), sp
 	input = Input;
 	Ship.Texture = GLHelper::LoadTexture("Assets/Ship.png");
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
-	SetTriangle(Triangle);
+	SetPosition(position);
+	
 }
 
 
@@ -110,5 +111,5 @@ void PlayerShip::Update(int deltaTime)
 	input->SetPointerAnchor(position);
 
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
-	SetTriangle(Triangle);
+	SetPosition(position);
 }

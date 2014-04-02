@@ -9,13 +9,14 @@ class StupidBot : public IGameEntity, public TriangleCollidable
 	void Move(int deltaTime);
 	
 	std::unique_ptr<IPewPew> Gun;
-
+	glm::vec2 default_direction;
 	glm::vec2 speed;
 	glm::vec2 thrust;
 	float MaxSpeed;
 	float rotation;
 	bool IsDead;
 	Sprite Ship;
+
 public:
 	glm::vec2 position;
 	StupidBot(Collider &collider);

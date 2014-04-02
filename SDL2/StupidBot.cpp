@@ -16,7 +16,7 @@ StupidBot::StupidBot(Collider &collider):
 	Ship.setRotation(90);
 	IsDead = false;
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
-	SetTriangle(Triangle);
+	SetPosition(position);
 }
 
 
@@ -42,15 +42,36 @@ void StupidBot::Collide(Particle &P)
 
 void StupidBot::Move(int deltaTime)
 {
-	glm::vec2 direction = glm::vec2(
-					 0.5 * cos((rotation - 90)/ (180 / PI)),
-					 0.5 * sin((rotation - 90)/ (180 / PI))
-					);
 	double dist = glm::distance(position, target->position);
-	if(dist > 300)
+	float direction = dist > 300? rotation - 90 : rotation;
+
+	glm::vec2 direction_vector = glm::vec2(
+					0.5 * cos((direction)/ (180 / PI)),
+					0.5 * sin((direction)/ (180 / PI))
+				);
+	
+	
+	glm::vec2 old_position = position;
+	position += direction_vector * (float) deltaTime;
+	if(position.x > SCREEN_WIDTH)
 	{
-		position += direction * (float) deltaTime;
+		position.x = 0;
 	}
+	if(position.x < 0)
+	{
+		position.x = SCREEN_WIDTH;
+	}
+
+	if(position.y > SCREEN_HEIGHT)
+	{
+		position.y = 0;
+	}
+	if(position.y < 0)
+	{
+		position.y = SCREEN_HEIGHT;
+	}
+
+	SetPosition(position);
 }
 
 void StupidBot::Render(Graphics &g)
@@ -74,7 +95,7 @@ void StupidBot::Update(int deltaTime)
 					));
 	Gun->Update(deltaTime);
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
-	SetTriangle(Triangle);
+	SetPosition(position);
 }
 
 StupidBot::~StupidBot()

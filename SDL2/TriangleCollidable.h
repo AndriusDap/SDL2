@@ -4,11 +4,12 @@
 
 class TriangleCollidable
 {
-vector<double> Vertices;
-public:
-	TriangleCollidable();
-	void SetTriangle(double triangle[6]);
 
+public:
+	float Size;
+	glm::vec2 Position;
+	TriangleCollidable();
+	void SetPosition(glm::vec2 pos);
 	bool CheckCollision(Particle &P);
 	virtual void Collide(Particle &P){};
 	virtual bool Dead(){ cout << "fuck" << endl; return false;};
