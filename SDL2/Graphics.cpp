@@ -7,7 +7,8 @@ Graphics::Graphics(int w, int h)
 	{
 		cerr << "Error initializing glfw" << endl;
 	}
-
+	
+	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
@@ -16,6 +17,7 @@ Graphics::Graphics(int w, int h)
 
 	main_window = glfwCreateWindow(w, h, "PEW PEW", NULL, NULL);
 	glfwMakeContextCurrent(main_window);
+
 	glewExperimental = true;
 	GLenum glew_error = glewInit();
 	glGetError();
@@ -49,11 +51,10 @@ Graphics::Graphics(int w, int h)
 	CheckGlErrors();
 	glDisable(GL_DEPTH_TEST);
 	CheckGlErrors();
-	glDepthFunc(GL_LESS);
-	CheckGlErrors();
 	glEnable(GL_MULTISAMPLE);
 	CheckGlErrors();
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	CheckGlErrors();
 	glEnable(GL_BLEND);
 	
@@ -88,19 +89,22 @@ void Graphics::StartRendering()
 	Shader.setView(ViewMatrix);
 
 	glEnableVertexAttribArray(0);		
-	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);	
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+
 	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
+	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);	
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+	LastTexture = 0;
 	CheckGlErrors();
 }
 
 void Graphics::Flip()
 {	
+		
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	Shader.end();
-
-
 
 	glfwSwapBuffers(main_window);
 	glfwPollEvents();
@@ -111,9 +115,12 @@ void Graphics::Flip()
 	Shader.setView(ViewMatrix);
 
 	glEnableVertexAttribArray(0);		
-	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);	
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);	
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 	LastTexture = 0;
 	CheckGlErrors();
 }
@@ -133,6 +140,7 @@ void Graphics::Render(IRenderable &renderable)
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		Shader.setTexture(0);
+		CheckGlErrors();
 		LastTexture = texture;
 	}
 
@@ -165,7 +173,7 @@ void Graphics::InitializeRectangle()
 		0.0f, 1.0f,
 		0.0f, 0.0f,
 	};
-
+	
 	SquareVBO;
 	// Generate new VBO and store it at SquareVBO
 	glGenBuffers(1, &SquareVBO);
@@ -176,13 +184,9 @@ void Graphics::InitializeRectangle()
 	// Upload vertex data to gpu
 	glBufferData(GL_ARRAY_BUFFER, sizeof(SquareCoordinateArray), SquareCoordinateArray, GL_STATIC_DRAW);
 
-	// Specify that out coordinate data is going into attribute index 0  and contains three floats per vertex
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
 	SquareUV;
 	glGenBuffers(1, &SquareUV);
 
 	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(UV), UV, GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }

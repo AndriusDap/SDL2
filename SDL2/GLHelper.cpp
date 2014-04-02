@@ -127,12 +127,13 @@ GLuint GLHelper::LoadTexture(string filePath)
 
 		//if there's an error, display it
 		if(error != 0) cout << "error: " << error << endl;
-
-
+	
 		GLuint texture;
 		glGenTextures(1, &texture);		
 		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA8 , 16, 16, 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*) &buffer[0]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, (void*) &image[0]);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,  GL_LINEAR);
 
 		CheckGlErrors();
 
