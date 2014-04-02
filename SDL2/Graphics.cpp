@@ -72,11 +72,17 @@ Graphics::Graphics(int w, int h)
 	InitializeRectangle();
 	
 	CheckGlErrors();
-	StartRendering();
+	//StartRendering();
 	
 	CheckGlErrors();
-	glClearColor(0.8f, 0.8f, 0.8f, 1.0);
+	//glClearColor(0.8f, 0.8f, 0.8f, 1.0);
 	
+	GLuint vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	CheckGlErrors();
+	Flip();
 	CheckGlErrors();
 }
 
@@ -95,6 +101,7 @@ void Graphics::StartRendering()
 	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);	
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+	CheckGlErrors();
 	LastTexture = 0;
 	CheckGlErrors();
 }
@@ -103,26 +110,42 @@ void Graphics::Flip()
 {	
 		
 	glDisableVertexAttribArray(0);
+	CheckGlErrors();
 	glDisableVertexAttribArray(1);
+	CheckGlErrors();
 	Shader.end();
 
 	glfwSwapBuffers(main_window);
+
+	CheckGlErrors();
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	CheckGlErrors();
 	Shader.begin();
 	Shader.setProjection(ProjectionMatrix);
 	Shader.setView(ViewMatrix);
 
-	glEnableVertexAttribArray(0);		
-	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);	
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-	LastTexture = 0;
 	CheckGlErrors();
+	glEnableVertexAttribArray(0);		
+	CheckGlErrors();
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);
+	CheckGlErrors();
+	glVertexAttribPointer(
+		0, //index
+		3, //size
+		GL_FLOAT, //type
+		GL_FALSE, //normalized
+		0, //stride
+		(void*) 0); // pointer
+	CheckGlErrors();
+	glEnableVertexAttribArray(1);
+	CheckGlErrors();
+	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
+	CheckGlErrors();
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+	CheckGlErrors();
+	LastTexture = 0;
 }
 
 glm::mat4 Graphics::Projection()
@@ -134,11 +157,15 @@ glm::mat4 Graphics::Projection()
 void Graphics::Render(IRenderable &renderable)
 {
 	Shader.setModel(renderable.getTransformation());
+	CheckGlErrors();
 	GLuint texture = renderable.getTexture();
+	CheckGlErrors();
 	if(LastTexture != texture)
 	{
 		glActiveTexture(GL_TEXTURE0);
+		CheckGlErrors();
 		glBindTexture(GL_TEXTURE_2D, texture);
+		CheckGlErrors();
 		Shader.setTexture(0);
 		CheckGlErrors();
 		LastTexture = texture;
