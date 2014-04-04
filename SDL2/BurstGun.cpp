@@ -15,7 +15,7 @@ BurstGun::BurstGun(function<void(Particle)> BulletStuff):
 	BulletIterator(0),
 	BulletLifeTime(1000),
 	BulletCraftingTimer(0),
-	BulletCraftingCooldown(2 * 100)
+	BulletCraftingCooldown(2 * 300)
 {
 	BulletTexture = GLHelper::LoadTexture("Assets/Bullet.png");
 	ClipPreview.Texture = BulletTexture;

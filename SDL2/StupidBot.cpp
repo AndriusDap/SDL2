@@ -25,7 +25,7 @@ void StupidBot::Spin(int deltaTime)
 {
 	glm::vec2 direction = target->position;
 	rotation = (float) (180 - atan2((float)(direction.x - position.x),(float)(direction.y - position.y)) * 180 / 3.14159265);
-	
+
 	rotation = fmod(rotation, 360.0f);
 }
 
@@ -42,36 +42,21 @@ void StupidBot::Collide(Particle &P)
 
 void StupidBot::Move(int deltaTime)
 {
-	double dist = glm::distance(position, target->position);
-	float direction = dist > 300? rotation - 90 : rotation;
-
-	glm::vec2 direction_vector = glm::vec2(
-					0.5 * cos((direction)/ (180 / PI)),
-					0.5 * sin((direction)/ (180 / PI))
-				);
-	
-	
-	glm::vec2 old_position = position;
-	position += direction_vector * (float) deltaTime;
-	if(position.x > SCREEN_WIDTH)
-	{
-		position.x = 0;
-	}
-	if(position.x < 0)
-	{
-		position.x = SCREEN_WIDTH;
-	}
-
-	if(position.y > SCREEN_HEIGHT)
-	{
-		position.y = 0;
-	}
-	if(position.y < 0)
-	{
-		position.y = SCREEN_HEIGHT;
-	}
-
+	position += MoveTarget / 4.0f * (float) deltaTime;
 	SetPosition(position);
+
+	while(position.x < 0)
+	{
+		position.x += SCREEN_WIDTH;
+	}
+
+	while(position.y < 0)
+	{
+		position.y += SCREEN_HEIGHT;
+	}
+
+	position.x = fmod(position.x, (float) SCREEN_WIDTH);
+	position.y = fmod(position.y, (float) SCREEN_HEIGHT);
 }
 
 void StupidBot::Render(Graphics &g)
@@ -90,9 +75,9 @@ void StupidBot::Update(int deltaTime)
 	Gun->setDirection(rotation);
 	Gun->Shoot();
 	Gun->setPosition(position + glm::vec2(
-					50 * cos((rotation - 90)/ (180 / PI)),
-					50 * sin((rotation - 90)/ (180 / PI))
-					));
+		50 * cos((rotation - 90)/ (180 / PI)),
+		50 * sin((rotation - 90)/ (180 / PI))
+		));
 	Gun->Update(deltaTime);
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
 	SetPosition(position);
@@ -101,4 +86,9 @@ void StupidBot::Update(int deltaTime)
 StupidBot::~StupidBot()
 {
 
+}
+
+void StupidBot::MoveTo(glm::vec2 pos)
+{
+	MoveTarget = glm::normalize(pos);
 }

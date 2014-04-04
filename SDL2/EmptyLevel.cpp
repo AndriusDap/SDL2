@@ -1,6 +1,6 @@
 #include "Includes.h"
 #include "EmptyLevel.h"
-
+#include "MasterMind.h"
 
 EmptyLevel::EmptyLevel(void)
 {
@@ -34,6 +34,9 @@ void EmptyLevel::CleanUp(Graphics &g)
 int EmptyLevel::Update(int gameTime)
 {
 	player->Update(gameTime);
+
+	MasterMind::MoveBots(enemies, player->position);
+
 	for(auto &enemy : enemies)
 	{
 		enemy->Update(gameTime);
@@ -62,6 +65,7 @@ int EmptyLevel::Update(int gameTime)
 			collider.AddShip(static_pointer_cast<TriangleCollidable>(second), 1);
 		}
 	}
+
 	
 	auto deadguys = remove_if(enemies.begin(), enemies.end(), [](shared_ptr<StupidBot> enemy){return enemy->Dead();});
 	enemies.erase(deadguys, enemies.end());

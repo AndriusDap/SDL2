@@ -90,6 +90,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MasterMind.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="IPewPew.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="MasterMind.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="resource.h" />

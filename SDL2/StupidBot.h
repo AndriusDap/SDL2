@@ -16,13 +16,14 @@ class StupidBot : public IGameEntity, public TriangleCollidable
 	float rotation;
 	bool IsDead;
 	Sprite Ship;
+	glm::vec2 MoveTarget;
 
 public:
 	glm::vec2 position;
 	StupidBot(Collider &collider);
 	void Render(Graphics &g);
 	void Update(int deltaTime);
-	
+	void MoveTo(glm::vec2 pos);
 	std::shared_ptr<PlayerShip> target;
 	~StupidBot(void);
 	

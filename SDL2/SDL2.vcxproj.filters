@@ -63,6 +63,9 @@
     <ClCompile Include="TriangleCollidable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MasterMind.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TriangleCollidable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterMind.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
