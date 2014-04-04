@@ -2,7 +2,8 @@
 layout(location = 0) in vec3 vertex;
 layout(location = 1) in vec2 vertexUV;
 
-uniform mat4 Model;
+layout(location = 2) in mat4 Model;
+
 uniform mat4 View;
 uniform mat4 Projection;
 

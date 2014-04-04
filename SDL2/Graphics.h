@@ -12,6 +12,11 @@
 class Graphics
 {
 private:
+	vector<IRenderable> FrameQueue;
+	size_t FrameCursor;
+	static const size_t FrameQueueLength = 1000;
+	GLuint ModelTransformationBuffer;
+
 	glm::mat4 ProjectionMatrix;
 	glm::mat4 ViewMatrix;
 	BasicEffect Shader;
@@ -19,7 +24,8 @@ private:
 	GLuint SquareVBO;
 	GLuint SquareUV;
 	GLuint LastTexture;
-
+	
+	void FlushBuffer();
 public:	
 	GLFWwindow* main_window;
 	Graphics(int w, int h);
