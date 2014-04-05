@@ -218,13 +218,29 @@ void Graphics::FlushBuffer()
 		float *v = &transformation[0][0];
 		transformations.insert(transformations.begin() + i * 16, v, v + 16);
 	}
+	glEnableVertexAttribArray(0);		
+	glBindBuffer(GL_ARRAY_BUFFER, SquareVBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, ModelTransformationBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * transformations.size(), &transformations[0], GL_DYNAMIC_DRAW);
-	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-	glVertexAttribDivisor(2, 4);
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 12, (void*) 0);
+	glVertexAttribDivisor(2, 1);
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 12, (void*) 4);
+	glVertexAttribDivisor(3, 1);
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 12, (void*) 8);
+	glVertexAttribDivisor(4, 1);
+	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 12, (void*) 12);
+	glVertexAttribDivisor(5, 1);
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);		
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 6, FrameCursor);		
 	CheckGlErrors();
 
 	FrameCursor = 0;
