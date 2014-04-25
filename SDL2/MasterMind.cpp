@@ -10,12 +10,17 @@ void MasterMind::MoveBots(vector<shared_ptr<StupidBot>> bots, glm::vec2 PlayerPo
 		float hate = 0.1f;
 		if(bots.size() > 10)
 		{
-			hate *= bots.size();
+			hate = 1.0f / bots.size();
 		}
-		auto fun = [&](glm::vec2 pos, shared_ptr<StupidBot> bot)
+		auto fun = [&](glm::vec2 pos, glm::vec2 pos2, float maxdistance)
 			{
-				float coef = pow(glm::distance(current->position, bot->position) * hate, -8.0f);
-				return pos + (current->position - bot->position) * coef;
+				float dist = glm::distance(current->position, pos2);
+				float force = sqrt((maxdistance - dist) / maxdistance);
+				if(force != force) 
+				{
+					force = 0;
+				}
+				return (current->position - pos2) * force;
 			};
 
 		for(size_t j = 0; j < bots.size(); j++)
@@ -24,10 +29,12 @@ void MasterMind::MoveBots(vector<shared_ptr<StupidBot>> bots, glm::vec2 PlayerPo
 			{
 				continue;
 			}
-			position += fun(position, bots[j]);
+			position += fun(position, bots[j]->position, 100);
 		}
+		auto res = fun(position, PlayerPosition, 1000);
+		position -= res;
+		position = position / ((float) bots.size());
 
-		position -= current->position - PlayerPosition;
 		bots[i]->MoveTo(position);
 	}
 };
