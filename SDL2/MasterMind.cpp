@@ -15,12 +15,20 @@ void MasterMind::MoveBots(vector<shared_ptr<StupidBot>> bots, glm::vec2 PlayerPo
 		auto fun = [&](glm::vec2 pos, glm::vec2 pos2, float maxdistance)
 			{
 				float dist = glm::distance(current->position, pos2);
+
+				if(dist <= FLT_EPSILON)
+				{
+					float r1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+					float r2 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+					return glm::vec2(r1, r2);
+				}
+
 				float force = sqrt((maxdistance - dist) / maxdistance);
 				if(force != force) 
 				{
 					force = 0;
 				}
-				return (current->position - pos2) * force;
+				return (glm::vec2) ((current->position - pos2) * force);
 			};
 
 		for(size_t j = 0; j < bots.size(); j++)
