@@ -17,6 +17,7 @@ class StupidBot : public IGameEntity, public TriangleCollidable
 	bool IsDead;
 	Sprite Ship;
 	glm::vec2 MoveTarget;
+	
 
 public:
 	glm::vec2 position;
@@ -26,7 +27,7 @@ public:
 	void MoveTo(glm::vec2 pos);
 	std::shared_ptr<PlayerShip> target;
 	~StupidBot(void);
-	
+	std::function<void(glm::vec2)> OnDeath;
 	virtual void Collide(Particle &P);
 	virtual bool Dead();
 };

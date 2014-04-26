@@ -17,6 +17,7 @@ void EmptyLevel::Initialize(Graphics &g, Input &input)
 {
 	
 	player.reset(new PlayerShip(&input, collider));	
+	pickups.reset(new Pickups(player));
 	enemies.emplace_back(new StupidBot(collider));
 	collider.AddShip(static_pointer_cast<TriangleCollidable>(player), 0);
 	for(auto &e : enemies)
@@ -25,6 +26,7 @@ void EmptyLevel::Initialize(Graphics &g, Input &input)
 	}
 
 	enemies[0]->target = player;
+	enemies[0]->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position);};
 }
 
 void EmptyLevel::CleanUp(Graphics &g)
@@ -33,6 +35,7 @@ void EmptyLevel::CleanUp(Graphics &g)
 
 int EmptyLevel::Update(int gameTime)
 {
+	pickups->Update(gameTime);
 	player->Update(gameTime);
 
 	MasterMind::MoveBots(enemies, player->position);
@@ -57,6 +60,8 @@ int EmptyLevel::Update(int gameTime)
 			first->position = enemy->position + vect;
 			first->target = player;
 			shared_ptr<StupidBot> second(new StupidBot(collider));
+			first->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position);};
+			second->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position);};
 			second->position = enemy->position - vect;
 			second->target = player;
 			spawns.emplace_back(first);
@@ -88,6 +93,7 @@ int EmptyLevel::Update(int gameTime)
 
 void EmptyLevel::Render(Graphics &g)
 {
+	pickups->Render(g);
 	player->Render(g);
 	for(auto &enemy : enemies)
 	{

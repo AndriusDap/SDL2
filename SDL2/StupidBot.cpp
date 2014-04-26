@@ -37,6 +37,7 @@ bool StupidBot::Dead()
 
 void StupidBot::Collide(Particle &P)
 {
+	OnDeath(position);
 	IsDead = true;
 }
 

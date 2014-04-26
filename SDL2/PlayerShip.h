@@ -21,10 +21,9 @@ private:
 
 	void Spin(int deltaTime);
 	void Move(int deltaTime);
-	std::unique_ptr<IPewPew> Gun;
-
 	
 public:
+	std::unique_ptr<IPewPew> Gun;
 	PlayerShip(Input *Input, Collider &collider);
 	~PlayerShip(void);
 	Sprite Ship;

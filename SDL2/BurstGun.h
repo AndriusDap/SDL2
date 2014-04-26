@@ -35,5 +35,6 @@ public:
 	void Update(int gameTime);
 	void Render(Graphics &g);
 	void setTexture(GLuint texture);
+	void increaseSpeed();
 };
 

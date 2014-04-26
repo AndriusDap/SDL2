@@ -4,12 +4,13 @@
 #include "PlayerShip.h"
 #include "StupidBot.h"
 #include "Collider.h"
-
+#include "Pickups.h"
 
 class EmptyLevel : public ILevel
 {
 	std::shared_ptr<PlayerShip> player;
 	std::vector<std::shared_ptr<StupidBot>> enemies;
+	std::shared_ptr<Pickups> pickups;
 	Collider collider;
 public:
 	EmptyLevel(void);

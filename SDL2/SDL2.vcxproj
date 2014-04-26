@@ -92,6 +92,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterMind.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Pickups.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StupidBot.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MasterMind.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Pickups.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />

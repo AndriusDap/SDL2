@@ -3,7 +3,7 @@
 #include "IRenderable.h"
 class Sprite : public IRenderable
 {
-private:
+public:
 	float X, Y;
 	float Scale;
 	float Rotation;
@@ -11,7 +11,6 @@ private:
 	glm::mat4 Model;
 	bool Dirty;
 	void getModel();
-public:
 	Sprite(void);
 	virtual ~Sprite(void);
 	glm::mat4 getTransformation();
