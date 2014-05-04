@@ -102,7 +102,7 @@ void BurstGun::Render(Graphics &g)
 
 void BurstGun::increaseSpeed()
 {
-	BulletCraftingCooldown *= 0.7;
+	BulletCraftingCooldown = (int) ((double)BulletCraftingCooldown * 0.7);
 	if(BulletCraftingCooldown < 10)
 	{
 		BulletCraftingCooldown = 10;

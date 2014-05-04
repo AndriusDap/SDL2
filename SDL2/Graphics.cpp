@@ -82,6 +82,7 @@ Graphics::Graphics(int w, int h)
 	glBindVertexArray(vao);
 
 	CheckGlErrors();
+	spriteRenderer = new SpriteRenderer();
 	Flip();
 	CheckGlErrors();
 }
@@ -114,6 +115,8 @@ void Graphics::Flip()
 	glDisableVertexAttribArray(1);
 	CheckGlErrors();
 	Shader.end();
+	
+	spriteRenderer->Flip(ProjectionMatrix, ViewMatrix);
 
 	glfwSwapBuffers(main_window);
 
@@ -179,6 +182,7 @@ void Graphics::Render(IRenderable &renderable)
 Graphics::~Graphics(void)
 {
 	glfwTerminate();
+	delete spriteRenderer;
 }
 
 void Graphics::InitializeRectangle()
@@ -200,8 +204,6 @@ void Graphics::InitializeRectangle()
 		0.0f, 1.0f,
 		0.0f, 0.0f,
 	};
-	
-	SquareVBO;
 	// Generate new VBO and store it at SquareVBO
 	glGenBuffers(1, &SquareVBO);
 
@@ -216,4 +218,10 @@ void Graphics::InitializeRectangle()
 
 	glBindBuffer(GL_ARRAY_BUFFER, SquareUV);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(UV), UV, GL_STATIC_DRAW);
+}
+
+
+void Graphics::RenderPointSprite(float x, float y, float size, int spriteId)
+{
+	spriteRenderer->Render(x, y, size, spriteId);
 }

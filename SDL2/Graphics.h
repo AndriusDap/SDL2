@@ -3,11 +3,7 @@
 #include "Includes.h"
 #include "IRenderable.h"
 #include "BasicEffect.h"
-
-#ifndef GLContext
-#define GLContext SDL_GLContext
-#endif
-
+#include "SpriteRenderer.h"
 
 class Graphics
 {
@@ -19,7 +15,9 @@ private:
 	GLuint SquareVBO;
 	GLuint SquareUV;
 	GLuint LastTexture;
+	GLuint TexturePack;
 
+	SpriteRenderer* spriteRenderer;
 public:	
 	GLFWwindow* main_window;
 	Graphics(int w, int h);
@@ -28,6 +26,7 @@ public:
 	void Render(IRenderable &s);
 	void StartRendering();
 	~Graphics(void);
+	void RenderPointSprite(float x, float y, float size, int spriteId);
 
 private:
 	void InitializeRectangle();
