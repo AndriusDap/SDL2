@@ -91,6 +91,7 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterMind.cpp" />
+    <ClCompile Include="MenuLevel.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pickups.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="EmptyLevel.h" />
     <ClInclude Include="GLHelper.h" />
+    <ClInclude Include="Glyphs.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IGameEntity.h" />
     <ClInclude Include="ILevel.h" />
@@ -114,6 +116,7 @@
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MasterMind.h" />
+    <ClInclude Include="MenuLevel.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Pickups.h" />
     <ClInclude Include="PlayerShip.h" />

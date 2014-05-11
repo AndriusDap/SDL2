@@ -10,8 +10,17 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+	
+
+
 	Graphics g(SCREEN_WIDTH, SCREEN_HEIGHT);	
 	LevelManager levelManager(g);
+
+	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
+	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
+	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
+	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
+	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
 	levelManager.AppendLevel(unique_ptr<ILevel>(new EmptyLevel()));
 
 	levelManager.Start(g);

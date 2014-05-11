@@ -27,7 +27,7 @@ public:
 	void StartRendering();
 	~Graphics(void);
 	void RenderPointSprite(float x, float y, float size, int spriteId);
-
+	void RenderText(float x, float y, string text);
 private:
 	void InitializeRectangle();
 

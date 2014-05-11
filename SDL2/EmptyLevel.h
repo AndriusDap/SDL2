@@ -12,6 +12,7 @@ class EmptyLevel : public ILevel
 	std::vector<std::shared_ptr<StupidBot>> enemies;
 	std::shared_ptr<Pickups> pickups;
 	Collider collider;
+	int score;
 public:
 	EmptyLevel(void);
 	void Initialize(Graphics &g, Input &input);

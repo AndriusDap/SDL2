@@ -8,14 +8,14 @@ BurstGun::BurstGun(function<void(Particle)> BulletStuff):
 	Position(0, 0),
 	Speed(1, 1),
 	ClipSize(5),
-	MaxCooldown(50),
+	MaxCooldown(500),
 	Clip(5),
-	Cooldown(0),
+	Cooldown(10),
 	BulletTexture(0),
 	BulletIterator(0),
-	BulletLifeTime(1000),
-	BulletCraftingTimer(0),
-	BulletCraftingCooldown(2 * 100)
+	BulletLifeTime(100000),
+	BulletCraftingTimer(10),
+	BulletCraftingCooldown(2 * 1000)
 {
 	BulletTexture = GLHelper::LoadTexture("Assets/Bullet.png");
 	ClipPreview.Texture = BulletTexture;
@@ -46,8 +46,8 @@ void BurstGun::Shoot()
 		Clip--;
 		Particle bullet(
 				glm::vec2(
-					1 * cos((angle - 90)/ (180 / PI)),
-					1 * sin((angle - 90)/ (180 / PI))
+					.3 * cos((angle - 90)/ (180 / PI)),
+					.3 * sin((angle - 90)/ (180 / PI))
 					),
 				Position,
 				BulletTexture,

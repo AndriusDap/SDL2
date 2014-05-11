@@ -45,18 +45,20 @@ void LevelManager::Start(Graphics &g)
 				{
 					levels[currentLevel]->CleanUp(g);
 					currentLevel++;
-					if(currentLevel != levels.size())
+					if(currentLevel == levels.size())
 					{
 						currentLevel = 0;
-						levels[currentLevel]->Initialize(g, input);
-						break;
 					}
+					levels[currentLevel]->Initialize(g, input);
+					changeLevel = 0;
+					break;
 				}
 			case -1:
 				{
 					levels[currentLevel]->CleanUp(g);
 					currentLevel = 0;
 					levels[0]->Initialize(g, input);
+					changeLevel = 0;
 					break;
 				}
 			}

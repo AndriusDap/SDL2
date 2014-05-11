@@ -225,3 +225,8 @@ void Graphics::RenderPointSprite(float x, float y, float size, int spriteId)
 {
 	spriteRenderer->Render(x, y, size, spriteId);
 }
+
+void Graphics::RenderText(float x, float y, string text)
+{
+	spriteRenderer->RenderText(x, y, text);
+}

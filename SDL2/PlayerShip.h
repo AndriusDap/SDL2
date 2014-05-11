@@ -21,7 +21,7 @@ private:
 
 	void Spin(int deltaTime);
 	void Move(int deltaTime);
-	
+	bool dead;
 public:
 	std::unique_ptr<IPewPew> Gun;
 	PlayerShip(Input *Input, Collider &collider);

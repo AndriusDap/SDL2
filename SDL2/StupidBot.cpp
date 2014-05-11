@@ -17,6 +17,7 @@ StupidBot::StupidBot(Collider &collider):
 	IsDead = false;
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
 	SetPosition(position);
+
 }
 
 
@@ -43,7 +44,7 @@ void StupidBot::Collide(Particle &P)
 
 void StupidBot::Move(int deltaTime)
 {
-	position += MoveTarget / 4.0f * (float) deltaTime;
+	position += MoveTarget / 10.0f * (float) deltaTime;
 	SetPosition(position);
 
 	while(position.x < 0)

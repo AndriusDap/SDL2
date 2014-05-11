@@ -15,7 +15,7 @@ PlayerShip::PlayerShip(Input* Input, Collider &collider): position(300, 300), sp
 	Ship.Texture = GLHelper::LoadTexture("Assets/Ship.png");
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
 	SetPosition(position);
-	
+	dead = false;
 }
 
 
@@ -30,14 +30,13 @@ void PlayerShip::Spin(int deltaTime)
 
 bool PlayerShip::Dead()
 {
-	return false;
+	return dead;
 }
 
 
 void PlayerShip::Collide(Particle &P)
 {
-	P.Speed = -P.Speed; 
-	P.Life += 5000;
+	dead = true;
 }
 
 void PlayerShip::Move(int deltaTime)

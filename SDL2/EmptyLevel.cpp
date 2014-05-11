@@ -15,7 +15,7 @@ EmptyLevel::~EmptyLevel(void)
 
 void EmptyLevel::Initialize(Graphics &g, Input &input)
 {
-	
+	score = 0;
 	player.reset(new PlayerShip(&input, collider));	
 	pickups.reset(new Pickups(player));
 	enemies.emplace_back(new StupidBot(collider));
@@ -26,7 +26,7 @@ void EmptyLevel::Initialize(Graphics &g, Input &input)
 	}
 
 	enemies[0]->target = player;
-	enemies[0]->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position);};
+	enemies[0]->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position); score += 10;};
 }
 
 void EmptyLevel::CleanUp(Graphics &g)
@@ -100,5 +100,6 @@ void EmptyLevel::Render(Graphics &g)
 		enemy->Render(g);
 	}
 	collider.Render(g);
+	g.RenderText(800, 600, "Score: " + to_string(score));
 	//g.Drawtext("M", 100, 100);
 }
