@@ -12,7 +12,7 @@ public:
 	void SetPosition(glm::vec2 pos);
 	bool CheckCollision(Particle &P);
 	virtual void Collide(Particle &P){};
-	virtual bool Dead(){ cout << "fuck" << endl; return false;};
+	virtual bool Dead(){return false;};
 	virtual ~TriangleCollidable(void){};
 };
 

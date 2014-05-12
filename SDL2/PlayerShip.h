@@ -18,7 +18,7 @@ private:
 	Input* input;
 	double MaxSpeed;
 	double Mass;
-
+	int lives;
 	void Spin(int deltaTime);
 	void Move(int deltaTime);
 	bool dead;

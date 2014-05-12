@@ -173,28 +173,34 @@ void SpriteRenderer::RenderText(float x, float y, string text)
 	{
 		Glyph glyph = letters[cstring[i]];
 		InsertTextureCoordinates(glyph.x, glyph.y, glyph.width, glyph.height);
-		float magic = 300;
-		InsertCoordinates(cursor_x + glyph.xoffset * magic, cursor_x + glyph.width * magic, cursor_y, cursor_y + glyph.height * magic);
-		cursor_x += glyph.xadvance * magic;
+		float scale = 300;
+		InsertCoordinates(
+			cursor_x + glyph.xoffset * scale,
+			cursor_x + (glyph.xoffset + glyph.width) * scale,
+			cursor_y - (glyph.height + glyph.yoffset) * scale,
+			cursor_y - (glyph.yoffset) * scale);
+		cursor_x += glyph.xadvance * scale;
 	}
 
 }
 
 void SpriteRenderer::InsertTextureCoordinates(float x, float y, float width, float height)
 {
-	
-	TextureBuffer.emplace_back(x + width);
-	TextureBuffer.emplace_back(y + height);
-	TextureBuffer.emplace_back(x);
-	TextureBuffer.emplace_back(y);
-	TextureBuffer.emplace_back(x + width);
-	TextureBuffer.emplace_back(y);
 	TextureBuffer.emplace_back(x + width);
 	TextureBuffer.emplace_back(y + height);
 	TextureBuffer.emplace_back(x);
 	TextureBuffer.emplace_back(y + height);
 	TextureBuffer.emplace_back(x);
 	TextureBuffer.emplace_back(y);
+
+	TextureBuffer.emplace_back(x + width);
+	TextureBuffer.emplace_back(y + height);
+	TextureBuffer.emplace_back(x);
+	TextureBuffer.emplace_back(y);
+	TextureBuffer.emplace_back(x + width);
+	TextureBuffer.emplace_back(y);
+
+
 }
 
 void SpriteRenderer::InsertCoordinates(float left, float right, float bottom, float top)
@@ -203,20 +209,23 @@ void SpriteRenderer::InsertCoordinates(float left, float right, float bottom, fl
 	CoordinateBuffer.emplace_back(bottom);
 	CoordinateBuffer.emplace_back(0.0f);
 	CoordinateBuffer.emplace_back(left);
-	CoordinateBuffer.emplace_back(top);
-	CoordinateBuffer.emplace_back(0.0f);
-	CoordinateBuffer.emplace_back(right);
-	CoordinateBuffer.emplace_back(top);
-	CoordinateBuffer.emplace_back(0.0f);
-	CoordinateBuffer.emplace_back(right);
-	CoordinateBuffer.emplace_back(bottom);
-	CoordinateBuffer.emplace_back(0.0f);
-	CoordinateBuffer.emplace_back(left);
 	CoordinateBuffer.emplace_back(bottom);
 	CoordinateBuffer.emplace_back(0.0f);
 	CoordinateBuffer.emplace_back(left);
 	CoordinateBuffer.emplace_back(top);
 	CoordinateBuffer.emplace_back(0.0f);
+
+	CoordinateBuffer.emplace_back(right);
+	CoordinateBuffer.emplace_back(bottom);
+	CoordinateBuffer.emplace_back(0.0f);
+	CoordinateBuffer.emplace_back(left);
+	CoordinateBuffer.emplace_back(top);
+	CoordinateBuffer.emplace_back(0.0f);
+	CoordinateBuffer.emplace_back(right);
+	CoordinateBuffer.emplace_back(top);
+	CoordinateBuffer.emplace_back(0.0f);
+
+
 }
 
 void SpriteRenderer::InsertTextureCoordinates(int texturePosition)

@@ -1,6 +1,7 @@
 #include "Includes.h"
 #include "LevelManager.h"
-
+#include "EmptyLevel.h"
+#include "MenuLevel.h"
 
 LevelManager::LevelManager(Graphics &g)
 	: input(g.main_window)
@@ -47,7 +48,8 @@ void LevelManager::Start(Graphics &g)
 					currentLevel++;
 					if(currentLevel == levels.size())
 					{
-						currentLevel = 0;
+						levels.push_back(unique_ptr<ILevel>(new EmptyLevel()));
+						levels.push_back(unique_ptr<ILevel>(new MenuLevel()));
 					}
 					levels[currentLevel]->Initialize(g, input);
 					changeLevel = 0;

@@ -23,7 +23,7 @@ class BurstGun : public IPewPew
 	int BulletLifeTime;
 	GLuint BulletTexture;
 	glm::vec2 Speed;
-
+	int FanSize;
 	Sprite ClipPreview;
 	function<void(Particle)> BulletTarget;
 public:
@@ -36,5 +36,7 @@ public:
 	void Render(Graphics &g);
 	void setTexture(GLuint texture);
 	void increaseSpeed();
+	void increaseFanSize();
+	void decreaseFanSize();
 };
 

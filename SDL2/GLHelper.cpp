@@ -2,6 +2,47 @@
 #include "Includes.h"
 #include "GLHelper.h"
 
+int highscore = -1;
+int lastscore = -1;
+int GLHelper::GetHighscore()
+{
+	if(highscore == -1)
+	{
+		ifstream highscoreFile;
+		highscoreFile.open ("score.txt", ios_base::in);
+		if (highscoreFile.is_open())
+		{
+			highscoreFile>>highscore;
+			highscoreFile.close();
+		}
+		else
+		{
+			highscore = 0;
+		}
+	}
+	return highscore;
+}
+
+int GLHelper::GetLastScore()
+{
+	return lastscore;
+}
+
+void GLHelper::SetHighscore(int score)
+{
+	lastscore = score;
+	if(score > highscore)
+	{
+		highscore = score;
+		ofstream highscoreFile;
+		highscoreFile.open ("score.txt", ios_base::out);
+		if (highscoreFile.is_open())
+		{
+			highscoreFile << highscore;
+			highscoreFile.close();
+		}
+	}
+}
 
 GLuint GLHelper::LoadShader(std::string filePath, GLuint shaderType)
 {

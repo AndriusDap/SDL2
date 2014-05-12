@@ -16,6 +16,7 @@ PlayerShip::PlayerShip(Input* Input, Collider &collider): position(300, 300), sp
 	double Triangle[] = {position.x, position.y, 0, 0, 0, 0};
 	SetPosition(position);
 	dead = false;
+	lives = 5;
 }
 
 
@@ -30,13 +31,13 @@ void PlayerShip::Spin(int deltaTime)
 
 bool PlayerShip::Dead()
 {
-	return dead;
+	return lives == 0;
 }
 
 
 void PlayerShip::Collide(Particle &P)
 {
-	dead = true;
+	lives--;
 }
 
 void PlayerShip::Move(int deltaTime)
@@ -89,6 +90,7 @@ void PlayerShip::Render(Graphics &g)
 	g.Render(Ship);
 
 	Gun->Render(g);
+	g.RenderText(800, 650, "Lives left: " + to_string(lives));
 }
 
 void PlayerShip::Update(int deltaTime)

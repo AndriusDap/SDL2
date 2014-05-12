@@ -35,8 +35,6 @@ void EmptyLevel::CleanUp(Graphics &g)
 
 int EmptyLevel::Update(int gameTime)
 {
-	pickups->Update(gameTime);
-	player->Update(gameTime);
 
 	MasterMind::MoveBots(enemies, player->position);
 
@@ -60,8 +58,8 @@ int EmptyLevel::Update(int gameTime)
 			first->position = enemy->position + vect;
 			first->target = player;
 			shared_ptr<StupidBot> second(new StupidBot(collider));
-			first->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position);};
-			second->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position);};
+			first->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position); score += 10;};
+			second->OnDeath = [&](glm::vec2 position) {pickups->SpawnIfLucky(position); score += 10;};
 			second->position = enemy->position - vect;
 			second->target = player;
 			spawns.emplace_back(first);
@@ -75,6 +73,9 @@ int EmptyLevel::Update(int gameTime)
 	auto deadguys = remove_if(enemies.begin(), enemies.end(), [](shared_ptr<StupidBot> enemy){return enemy->Dead();});
 	enemies.erase(deadguys, enemies.end());
 
+	pickups->Update(gameTime);
+	player->Update(gameTime);
+
 
 	size_t spanws_count = spawns.size();
 	if(spanws_count != 0)
@@ -83,6 +84,7 @@ int EmptyLevel::Update(int gameTime)
 	}
 	if(player->Dead())
 	{
+		GLHelper::SetHighscore(score);
 		return 1;
 	}
 	else

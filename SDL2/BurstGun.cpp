@@ -15,7 +15,8 @@ BurstGun::BurstGun(function<void(Particle)> BulletStuff):
 	BulletIterator(0),
 	BulletLifeTime(100000),
 	BulletCraftingTimer(10),
-	BulletCraftingCooldown(2 * 1000)
+	BulletCraftingCooldown(2 * 1000),
+	FanSize(1)
 {
 	BulletTexture = GLHelper::LoadTexture("Assets/Bullet.png");
 	ClipPreview.Texture = BulletTexture;
@@ -44,18 +45,24 @@ void BurstGun::Shoot()
 	if(Cooldown <= 0 && Clip > 0)
 	{
 		Clip--;
-		Particle bullet(
-				glm::vec2(
-					.3 * cos((angle - 90)/ (180 / PI)),
-					.3 * sin((angle - 90)/ (180 / PI))
-					),
-				Position,
-				BulletTexture,
-				BulletLifeTime
-				);
-		bullet.scale = (float) max((Clip + 1) * 8, 3 * 8);
-		BulletTarget(bullet);
-		Cooldown = MaxCooldown;
+		float fanDispersion = 10;
+		float fanAngle = angle - (FanSize/2 * fanDispersion);
+		
+		for(int i = 0; i < FanSize; i++)
+		{
+			Particle bullet(
+					glm::vec2(
+						.3 * cos((fanAngle + i * fanDispersion - 90)/ (180 / PI)),
+						.3 * sin((fanAngle + i * fanDispersion - 90)/ (180 / PI))
+						),
+					Position,
+					BulletTexture,
+					BulletLifeTime
+					);
+			bullet.scale = (float) max((Clip + 1) * 8, 3 * 8);
+			BulletTarget(bullet);
+			Cooldown = MaxCooldown;
+		}
 	}
 }
 
@@ -106,5 +113,19 @@ void BurstGun::increaseSpeed()
 	if(BulletCraftingCooldown < 10)
 	{
 		BulletCraftingCooldown = 10;
+	}
+}
+
+void BurstGun::increaseFanSize()
+{
+	FanSize++;
+}
+
+void BurstGun::decreaseFanSize()
+{
+	FanSize--;
+	if(FanSize == 0)
+	{
+		FanSize = 1;
 	}
 }

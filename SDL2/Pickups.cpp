@@ -1,6 +1,6 @@
 #include "Includes.h"
 #include "Pickups.h"
-
+#include "BurstGun.h"
 
 Pickups::Pickups(shared_ptr<PlayerShip> player) : player(player)
 {
@@ -16,7 +16,14 @@ void Pickups::SpawnIfLucky(glm::vec2 position)
 		Sprite pickup;
 		pickup.setScale(50);
 		pickup.setTranslation(position.x, position.y);
-		pickup.Texture = GLHelper::LoadTexture("Assets/plus.png");
+		if(rand()%2)
+		{
+			pickup.Texture = GLHelper::LoadTexture("Assets/plus.png");
+		}
+		else
+		{
+			pickup.Texture = GLHelper::LoadTexture("Assets/redPlus.png");
+		}
 		activePickups.emplace_back(pickup);	
 	}
 }
@@ -38,7 +45,16 @@ void Pickups::Update(int deltaTime)
 	{
 		if(glm::distance(playerPosition, glm::vec2(activePickups[i].X, activePickups[i].Y)) < 30 )
 		{
-			player->Gun->increaseSpeed();
+			if(activePickups[i].getTexture() == GLHelper::LoadTexture("Assets/plus.png"))
+			{
+				player->Gun->increaseSpeed();
+			
+				((BurstGun*) player->Gun.get())->increaseFanSize();
+			}
+			else
+			{
+				((BurstGun*) player->Gun.get())->decreaseFanSize();
+			}
 			activePickups.erase(activePickups.begin() + i);
 		}		
 	}
