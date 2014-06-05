@@ -7,8 +7,9 @@ namespace GLHelper
 	GLuint LoadShader(string filePath, GLuint shaderType);
 	GLuint CreateProgram(GLuint fragmentShader, GLuint vertexShader);
 	GLuint LoadTexture(string filePath);
-	int GetHighscore();
+	string GetHighscore();
 	int GetLastScore();
 	void SetHighscore(int score);
+	void SetHighscore(int score, string name);
 
 }

@@ -4,7 +4,10 @@
 
 int highscore = -1;
 int lastscore = -1;
-int GLHelper::GetHighscore()
+string lastname;
+string highname;
+
+string GLHelper::GetHighscore()
 {
 	if(highscore == -1)
 	{
@@ -12,7 +15,7 @@ int GLHelper::GetHighscore()
 		highscoreFile.open ("score.txt", ios_base::in);
 		if (highscoreFile.is_open())
 		{
-			highscoreFile>>highscore;
+			highscoreFile >> highname >> highscore;
 			highscoreFile.close();
 		}
 		else
@@ -20,7 +23,12 @@ int GLHelper::GetHighscore()
 			highscore = 0;
 		}
 	}
-	return highscore;
+	return highname + " - " + to_string(highscore);
+}
+
+void GLHelper::SetHighscore(int score)
+{
+	lastscore = score;
 }
 
 int GLHelper::GetLastScore()
@@ -28,17 +36,19 @@ int GLHelper::GetLastScore()
 	return lastscore;
 }
 
-void GLHelper::SetHighscore(int score)
+void GLHelper::SetHighscore(int score, string name)
 {
 	lastscore = score;
+	lastname = name;
 	if(score > highscore)
 	{
 		highscore = score;
+		highname = name;
 		ofstream highscoreFile;
 		highscoreFile.open ("score.txt", ios_base::out);
 		if (highscoreFile.is_open())
 		{
-			highscoreFile << highscore;
+			highscoreFile << name << " " << highscore;
 			highscoreFile.close();
 		}
 	}

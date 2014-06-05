@@ -10,6 +10,10 @@ Input::Input(GLFWwindow *Window):Anchor(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 	HorizontalMotion = 0.0f;
 	VerticalMotion = 0.0f;
 	Quit = false;
+	for(int i = 0; i < 100; i++)
+	{
+		presed_keys[i] = false;
+	}
 }
 
 void Input::SetPointerAnchor(glm::vec2 anchor)
@@ -57,6 +61,28 @@ void Input::Update(int gameTime)
 	{
 		HorizontalMotion = 1.0f;
 	}
+
+	for(int i = 65; i < 91; i++)
+	{
+		if(glfwGetKey(window, i) == GLFW_PRESS)
+		{
+			if(!presed_keys[i]) 
+			{
+				text_buffer += (char) i;
+				presed_keys[i] = true;
+			}
+		}
+		else
+		{
+			presed_keys[i] = false;
+		}
+	}
+
+	if(glfwGetKey(window, GLFW_KEY_BACKSPACE) == GLFW_PRESS)
+	{
+		text_buffer = text_buffer.length() == 1 ? "" : text_buffer.substr(0, text_buffer.length() - 1);
+	}
+
 	Quit = glfwWindowShouldClose(window) == 1? true : false;
 }
 

@@ -31,7 +31,7 @@ void PlayerShip::Spin(int deltaTime)
 
 bool PlayerShip::Dead()
 {
-	return lives == 0;
+	return lives <= 0;
 }
 
 
